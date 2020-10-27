@@ -1,0 +1,64 @@
+{
+  "name": "mmm-toast-demo",
+  "version": "0.0.1",
+  "description": "Simple and clean Angular Toast library that shows growl-style notifications and messages for your web app",
+  "license": "MIT",
+  "author": {
+    "name": "Steve Whitmore",
+    "url": "https://stevewhitmore.dev"
+  },
+  "homepage": "https://github.com/stevewhitmore/mmm-toast",
+  "bugs": "https://github.com/stevewhitmore/mmm-toast/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stevewhitmore/mmm-toast.git"
+  },
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "build-prod": "ng build mmm-toast --prod && ng build --prod",
+    "gh-pages": "ng build --prod --output-path docs --base-href /mmm-toast/",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
+  },
+  "dependencies": {
+    "@angular/common": "^8.1.0",
+    "@angular/core": "^8.1.0",
+    "@angular/compiler": "^8.1.0",
+    "@angular/animations": "^8.1.0",
+    "@angular/forms": "^8.1.0",
+    "@angular/http": "^7.2.15",
+    "@angular/platform-browser": "^8.1.0",
+    "@angular/platform-browser-dynamic": "^8.1.0",
+    "@angular/router": "^8.1.0",
+    "rxjs": "^6.4.0",
+    "tslib": "^1.9.0",
+    "zone.js": "^0.9.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^0.1002.0",
+    "@angular-devkit/build-ng-packagr": "~0.801.0",
+    "@angular/cli": "~8.1.0",
+    "@angular/compiler-cli": "^8.1.0",
+    "@angular/language-service": "^8.1.0",
+    "@types/jasmine": "~3.3.13",
+    "@types/jasminewd2": "~2.0.6",
+    "@types/node": "~8.9.4",
+    "codelyzer": "^5.0.0",
+    "jasmine-core": "~3.4.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~4.1.0",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.5",
+    "karma-jasmine": "~2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.2",
+    "ng-packagr": "^5.3.0",
+    "protractor": "~5.4.2",
+    "ts-node": "~7.0.0",
+    "tsickle": ">=0.25.5",
+    "tslint": "~5.15.0",
+    "typescript": "~3.4.5"
+  }
+}
