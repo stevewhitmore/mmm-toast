@@ -1,7 +1,7 @@
 {
   "name": "mmm-toast",
   "description": "Simple and clean Angular Toast component that shows growl-style notifications and messages for your web app",
-  "version": "0.0.1",
+  "version": "1.0.0-beta",
   "license": "MIT",
   "author": {
     "name": "Steve Whitmore",
@@ -27,6 +27,9 @@
   "fesm2015": "fesm2015/mmm-toast.js",
   "typings": "mmm-toast.d.ts",
   "metadata": "mmm-toast.metadata.json",
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
   "sideEffects": false,
   "keywords": [
     "ng2",
