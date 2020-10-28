@@ -1,6 +1,6 @@
 {
   "name": "mmm-toast-demo",
-  "version": "1.0.0-beta",
+  "version": "1.0.0-beta.1",
   "description": "Simple and clean Angular Toast library that shows growl-style notifications and messages for your web app",
   "license": "MIT",
   "author": {
