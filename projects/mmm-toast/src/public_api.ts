@@ -2,8 +2,8 @@
  * Public API Surface of mmm-toast
  */
 
-export * from './lib/toasty.service';
-export * from './lib/toasty.component';
+export * from './lib/toasta.service';
+export * from './lib/toasta.component';
 export * from './lib/toast.component';
 export * from './lib/shared';
-export * from './lib/toasty.module';
+export * from './lib/toasta.module';

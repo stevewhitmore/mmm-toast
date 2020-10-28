@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { ToastData } from './toasty.service';
+import { ToastData } from './toasta.service';
 
 /**
  * A Toast component shows message with title and close button.

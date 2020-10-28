@@ -3,14 +3,14 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 
 import { FormsModule } from '@angular/forms';
-import { ToastyModule } from '../../projects/mmm-toast/src/public_api';
+import { ToastaModule } from '../../projects/mmm-toast/src/public_api';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
-        ToastyModule.forRoot()
+        ToastaModule.forRoot()
       ],
       declarations: [
         AppComponent,

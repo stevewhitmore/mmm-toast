@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { isFunction } from './toasty.utils';
-import { ToastyService, ToastData, ToastyConfig, ToastaEvent, ToastaEventType } from './toasty.service';
+import { isFunction } from './toasta.utils';
+import { ToastaService, ToastData, ToastaConfig, ToastaEvent, ToastaEventType } from './toasta.service';
 
 /**
  * Toasta is container for Toast components
@@ -13,7 +13,7 @@ import { ToastyService, ToastData, ToastyConfig, ToastaEvent, ToastaEventType } 
         <ngx-toast *ngFor="let toast of toasts" [toast]="toast" (closeToast)="closeToast(toast)"></ngx-toast>
     </div>`
 })
-export class ToastyComponent implements OnInit {
+export class ToastaComponent implements OnInit {
   /**
    * Set of constants defines position of Toasta on the page.
    */
@@ -34,8 +34,8 @@ export class ToastyComponent implements OnInit {
   set position(value: string) {
     if (value) {
       let notFound = true;
-      for (let i = 0; i < ToastyComponent.POSITIONS.length; i++) {
-        if (ToastyComponent.POSITIONS[i] === value) {
+      for (let i = 0; i < ToastaComponent.POSITIONS.length; i++) {
+        if (ToastaComponent.POSITIONS[i] === value) {
           notFound = false;
           break;
         }
@@ -57,7 +57,7 @@ export class ToastyComponent implements OnInit {
   // The storage for toasts.
   toasts: Array<ToastData> = [];
 
-  constructor(private config: ToastyConfig, private ToastyService: ToastyService) {
+  constructor(private config: ToastaConfig, private ToastaService: ToastaService) {
     // Initialise position
     this.position = '';
   }
@@ -69,7 +69,7 @@ export class ToastyComponent implements OnInit {
    */
   ngOnInit(): any {
     // We listen events from our service
-    this.ToastyService.events.subscribe((event: ToastaEvent) => {
+    this.ToastaService.events.subscribe((event: ToastaEvent) => {
       if (event.type === ToastaEventType.ADD) {
         // Add the new one
         const toast: ToastData = event.value;
@@ -86,7 +86,7 @@ export class ToastyComponent implements OnInit {
   }
 
   /**
-   * Event listener of 'closeToast' event comes from ToastyComponent.
+   * Event listener of 'closeToast' event comes from ToastaComponent.
    * This method removes ToastComponent assosiated with this Toast.
    */
   closeToast(toast: ToastData) {

@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject, Observable, Subscription, interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { ToastyService, ToastyConfig, ToastOptions, ToastData, ToastaEvent, ToastaEventType } from '../../../projects/mmm-toast/src/public_api';
+import { ToastaService, ToastaConfig, ToastOptions, ToastData, ToastaEvent, ToastaEventType } from '../../../projects/mmm-toast/src/public_api';
 
 import { ToastPositionService } from '../toast-position.service';
 
@@ -12,7 +12,7 @@ import { ToastPositionService } from '../toast-position.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  constructor(private ToastyService: ToastyService, private toastPositionService: ToastPositionService) {
+  constructor(private ToastaService: ToastaService, private toastPositionService: ToastPositionService) {
 
   }
 
@@ -103,7 +103,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.ToastyService.events.subscribe((event: ToastaEvent) => {
+    this.ToastaService.events.subscribe((event: ToastaEvent) => {
       if (event.type === ToastaEventType.ADD) {
         const toast: ToastData = event.value;
         this.insertedToasts.push(toast.id);
@@ -136,12 +136,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
 
     switch (this.options.type) {
-      case 'default': this.ToastyService.default(toastOptions); break;
-      case 'info': this.ToastyService.info(toastOptions); break;
-      case 'success': this.ToastyService.success(toastOptions); break;
-      case 'wait': this.ToastyService.wait(toastOptions); break;
-      case 'error': this.ToastyService.error(toastOptions); break;
-      case 'warning': this.ToastyService.warning(toastOptions); break;
+      case 'default': this.ToastaService.default(toastOptions); break;
+      case 'info': this.ToastaService.info(toastOptions); break;
+      case 'success': this.ToastaService.success(toastOptions); break;
+      case 'wait': this.ToastaService.wait(toastOptions); break;
+      case 'error': this.ToastaService.error(toastOptions); break;
+      case 'warning': this.ToastaService.warning(toastOptions); break;
     }
   }
 
@@ -178,21 +178,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
 
     switch (this.options.type) {
-      case 'default': this.ToastyService.default(toastOptions); break;
-      case 'info': this.ToastyService.info(toastOptions); break;
-      case 'success': this.ToastyService.success(toastOptions); break;
-      case 'wait': this.ToastyService.wait(toastOptions); break;
-      case 'error': this.ToastyService.error(toastOptions); break;
-      case 'warning': this.ToastyService.warning(toastOptions); break;
+      case 'default': this.ToastaService.default(toastOptions); break;
+      case 'info': this.ToastaService.info(toastOptions); break;
+      case 'success': this.ToastaService.success(toastOptions); break;
+      case 'wait': this.ToastaService.wait(toastOptions); break;
+      case 'error': this.ToastaService.error(toastOptions); break;
+      case 'warning': this.ToastaService.warning(toastOptions); break;
     }
   }
 
   clearToasties() {
-    this.ToastyService.clearAll();
+    this.ToastaService.clearAll();
   }
 
   clearLastToast() {
-    this.ToastyService.clear(this.insertedToasts.pop());
+    this.ToastaService.clear(this.insertedToasts.pop());
   }
 
   changePosition($event) {

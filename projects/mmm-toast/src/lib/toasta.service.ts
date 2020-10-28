@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
-import { isString, isNumber, isFunction } from './toasty.utils';
+import { isString, isNumber, isFunction } from './toasta.utils';
 
 /**
  * Options to configure a new Toast
@@ -40,7 +40,7 @@ export class ToastData {
  * Default configuration for all toasts and toasta container
  */
 @Injectable()
-export class ToastyConfig {
+export class ToastaConfig {
 
   // Maximum number of toasties to show at once
   limit = 5;
@@ -71,15 +71,15 @@ export class ToastaEvent {
   constructor(public type: ToastaEventType, public value?: any) { }
 }
 
-export function ToastyServiceFactory(config: ToastyConfig): ToastyService {
-  return new ToastyService(config);
+export function ToastaServiceFactory(config: ToastaConfig): ToastaService {
+  return new ToastaService(config);
 }
 
 /**
  * Toasta service helps create different kinds of Toasts
  */
 @Injectable()
-export class ToastyService {
+export class ToastaService {
   // Allowed THEMES
   static THEMES: Array<string> = ['default', 'material', 'bootstrap'];
   // Init the counter
@@ -92,7 +92,7 @@ export class ToastyService {
   private eventSource: Subject<ToastaEvent> = new Subject<ToastaEvent>();
   public events: Observable<ToastaEvent> = this.eventSource.asObservable();
 
-  constructor(private config: ToastyConfig) { }
+  constructor(private config: ToastaConfig) { }
 
   /**
    * Get list of toats
@@ -183,7 +183,7 @@ export class ToastyService {
     // If we have a theme set, make sure it's a valid one
     let theme: string;
     if (toastaOptions.theme) {
-      theme = ToastyService.THEMES.indexOf(toastaOptions.theme) > -1 ? toastaOptions.theme : this.config.theme;
+      theme = ToastaService.THEMES.indexOf(toastaOptions.theme) > -1 ? toastaOptions.theme : this.config.theme;
     } else {
       theme = this.config.theme;
     }

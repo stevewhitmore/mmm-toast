@@ -1,7 +1,7 @@
 # mmm-toast [![npm version](https://badge.fury.io/js/mmm-toast.svg)](https://badge.fury.io/js/mmm-toast) [![npm monthly downloads](https://img.shields.io/npm/dm/mmm-toast.svg?style=flat-square)](https://www.npmjs.com/package/mmm-toast)
 An angularX toast component that shows growl-style alerts and messages for your application.
 This is a continuation of the legacy previously championed by [ngx-toasta](https://github.com/emonney/ngx-toasta)
-and before that [ng2-toasty](https://github.com/akserg/ng2-toasty) with the latest package versions and additional enhancements.
+and before that [ng2-toasta](https://github.com/akserg/ng2-toasta) with the latest package versions and additional enhancements.
 
 
 ## Installation
@@ -29,22 +29,22 @@ System.config({
   - `style-default.css` - Contains DEFAULT theme
   - `style-bootstrap.css` - Contains Bootstrap 3 theme
   - `style-material.css` - Contains Material Design theme
-- Assign the selected theme name [`default`, `bootstrap`, `material`] to the `theme` property of the instance of ToastyConfig.
+- Assign the selected theme name [`default`, `bootstrap`, `material`] to the `theme` property of the instance of ToastaConfig.
 - Add `<mmm-toast></mmm-toast>` tag in template of your application component.
 
-#### 2. Import the `ToastyModule`
-Import `ToastyModule.forRoot()` in the NgModule of your application. 
+#### 2. Import the `ToastaModule`
+Import `ToastaModule.forRoot()` in the NgModule of your application. 
 The `forRoot` method is a convention for modules that provide a singleton service.
 
 ```ts
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from '@angular/core';
-import {ToastyModule} from 'mmm-toast';
+import {ToastaModule} from 'mmm-toast';
 
 @NgModule({
     imports: [
         BrowserModule,
-        ToastyModule.forRoot()
+        ToastaModule.forRoot()
     ],
     bootstrap: [AppComponent]
 })
@@ -53,26 +53,26 @@ export class AppModule {
 ```
 
 If you have multiple NgModules and you use one as a shared NgModule (that you import in all of your other NgModules), 
-don't forget that you can use it to export the `ToastyModule` that you imported in order to avoid having to import it multiple times.
+don't forget that you can use it to export the `ToastaModule` that you imported in order to avoid having to import it multiple times.
 
 ```ts
 @NgModule({
     imports: [
         BrowserModule,
-        ToastyModule.forRoot()
+        ToastaModule.forRoot()
     ],
-    exports: [BrowserModule, ToastyModule],
+    exports: [BrowserModule, ToastaModule],
 })
 export class SharedModule {
 }
 ```
 
-#### 3. Use the `ToastyService` for your application
-- Import `ToastyService` from `mmm-toast` in your application code:
+#### 3. Use the `ToastaService` for your application
+- Import `ToastaService` from `mmm-toast` in your application code:
 
 ```js
 import {Component} from '@angular/core';
-import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'mmm-toast';
+import {ToastaService, ToastaConfig, ToastOptions, ToastData} from 'mmm-toast';
 
 @Component({
     selector: 'app',
@@ -84,15 +84,15 @@ import {ToastyService, ToastyConfig, ToastOptions, ToastData} from 'mmm-toast';
 })
 export class AppComponent {
     
-    constructor(private ToastyService:ToastyService, private ToastyConfig: ToastyConfig) { 
-        // Assign the selected theme name to the `theme` property of the instance of ToastyConfig. 
+    constructor(private ToastaService:ToastaService, private ToastaConfig: ToastaConfig) { 
+        // Assign the selected theme name to the `theme` property of the instance of ToastaConfig. 
         // Possible values: default, bootstrap, material
-        this.ToastyConfig.theme = 'material';
+        this.ToastaConfig.theme = 'material';
     }
     
     addToast() {
         // Just add default Toast with title only
-        this.ToastyService.default('Hi there');
+        this.ToastaService.default('Hi there');
         // Or create the instance of ToastOptions
         var toastOptions:ToastOptions = {
             title: "My title",
@@ -108,11 +108,11 @@ export class AppComponent {
             }
         };
         // Add see all possible types in one shot
-        this.ToastyService.info(toastOptions);
-        this.ToastyService.success(toastOptions);
-        this.ToastyService.wait(toastOptions);
-        this.ToastyService.error(toastOptions);
-        this.ToastyService.warning(toastOptions);
+        this.ToastaService.info(toastOptions);
+        this.ToastaService.success(toastOptions);
+        this.ToastaService.wait(toastOptions);
+        this.ToastaService.error(toastOptions);
+        this.ToastaService.warning(toastOptions);
     }
 }
 ```
@@ -122,7 +122,7 @@ Here is an example of how to dynamically update message and title of individual 
 
 ```js
 import {Component} from '@angular/core';
-import {ToastyService, ToastyConfig, ToastyComponent, ToastOptions, ToastData} from 'mmm-toast';
+import {ToastaService, ToastaConfig, ToastaComponent, ToastOptions, ToastData} from 'mmm-toast';
 import {Subject, Observable, Subscription} from 'rxjs/Rx';
 
 @Component({
@@ -143,7 +143,7 @@ export class AppComponent {
         return 'Seconds left: ' + num;
     }
     
-    constructor(private ToastyService:ToastyService) { }
+    constructor(private ToastaService:ToastaService) { }
     
     addToast() {
         let interval = 1000;
@@ -177,12 +177,12 @@ export class AppComponent {
         };
 
         switch (this.options.type) {
-            case 'default': this.ToastyService.default(toastOptions); break;
-            case 'info': this.ToastyService.info(toastOptions); break;
-            case 'success': this.ToastyService.success(toastOptions); break;
-            case 'wait': this.ToastyService.wait(toastOptions); break;
-            case 'error': this.ToastyService.error(toastOptions); break;
-            case 'warning': this.ToastyService.warning(toastOptions); break;
+            case 'default': this.ToastaService.default(toastOptions); break;
+            case 'info': this.ToastaService.info(toastOptions); break;
+            case 'success': this.ToastaService.success(toastOptions); break;
+            case 'wait': this.ToastaService.wait(toastOptions); break;
+            case 'error': this.ToastaService.error(toastOptions); break;
+            case 'warning': this.ToastaService.warning(toastOptions); break;
         }
     }
 }
@@ -193,7 +193,7 @@ Here is an example of how to close an individual toast:
 
 ```js
 import {Component} from '@angular/core';
-import {ToastyService, ToastyConfig, ToastyComponent, ToastOptions, ToastData} from 'mmm-toast';
+import {ToastaService, ToastaConfig, ToastaComponent, ToastOptions, ToastData} from 'mmm-toast';
 import {Subject, Observable, Subscription} from 'rxjs/Rx';
 
 @Component({
@@ -214,7 +214,7 @@ export class AppComponent {
         return 'Seconds left: ' + num;
     }
     
-    constructor(private ToastyService:ToastyService) { }
+    constructor(private ToastaService:ToastaService) { }
     
     addToast() {
         let interval = 1000;
@@ -237,7 +237,7 @@ export class AppComponent {
                     // Extra condition to hide Toast after 10 sec
                     if (count > 10) {
                         // We use toast id to identify and hide it
-                        this.ToastyService.clear(toast.id);
+                        this.ToastaService.clear(toast.id);
                     }
                 });
 
@@ -250,12 +250,12 @@ export class AppComponent {
         };
 
         switch (this.options.type) {
-            case 'default': this.ToastyService.default(toastOptions); break;
-            case 'info': this.ToastyService.info(toastOptions); break;
-            case 'success': this.ToastyService.success(toastOptions); break;
-            case 'wait': this.ToastyService.wait(toastOptions); break;
-            case 'error': this.ToastyService.error(toastOptions); break;
-            case 'warning': this.ToastyService.warning(toastOptions); break;
+            case 'default': this.ToastaService.default(toastOptions); break;
+            case 'info': this.ToastaService.info(toastOptions); break;
+            case 'success': this.ToastaService.success(toastOptions); break;
+            case 'wait': this.ToastaService.wait(toastOptions); break;
+            case 'error': this.ToastaService.error(toastOptions); break;
+            case 'warning': this.ToastaService.warning(toastOptions); break;
         }
     }
 }
@@ -297,7 +297,7 @@ ToastOptions
 Configurations that affects all toasts:
 
 ```js
-ToastyConfig
+ToastaConfig
 {
     "limit": 5,                 //Maximum toasts that can be shown at once. Older toasts will be removed. 0 is unlimited
     "showClose": true,          //Whether to show the 'x' icon to close the toast
@@ -310,7 +310,7 @@ ToastyConfig
 
 
 # Credits 
-Original work by [ng2-toasty](https://github.com/akserg/ng2-toasty)
+Original work by [ng2-toasta](https://github.com/akserg/ng2-toasta)
 
 
 # License
