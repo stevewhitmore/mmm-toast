@@ -1,11 +1,11 @@
 {
   "name": "mmm-toast-demo",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Simple and clean Angular Toast library that shows growl-style notifications and messages for your web app",
   "license": "MIT",
   "author": {
     "name": "Steve Whitmore",
-    "url": "https://stevewhitmore.dev"
+    "url": "https://stevewhitmore.github.io"
   },
   "homepage": "https://github.com/stevewhitmore/mmm-toast",
   "bugs": "https://github.com/stevewhitmore/mmm-toast/issues",
