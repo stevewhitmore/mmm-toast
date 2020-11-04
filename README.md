@@ -1,12 +1,13 @@
 # mmm-toast [![npm version](https://badge.fury.io/js/mmm-toast.svg)](https://badge.fury.io/js/mmm-toast) [![npm monthly downloads](https://img.shields.io/npm/dm/mmm-toast.svg?style=flat-square)](https://www.npmjs.com/package/mmm-toast)
+
 An angularX toast component that shows growl-style alerts and messages for your application.
 This is a continuation of the legacy previously championed by [ngx-toasta](https://github.com/emonney/ngx-toasta)
 and before that [ng2-toasta](https://github.com/akserg/ng2-toasta) with the latest package versions and additional enhancements.
 
-
 ## Installation
+
 ```sh
-npm install mmm-toast
+npm i mmm-toast
 ```
 
 ## Demo
@@ -14,6 +15,7 @@ npm install mmm-toast
 Online demo available [here](https://stevewhitmore.github.io/mmm-toast)
 
 ## Usage
+
 If you use SystemJS to load your files, you might have to update your config:
 
 ```js
@@ -24,22 +26,33 @@ System.config({
 });
 ```
 
-#### 1. Update the markup
+### 1. Update the markup
+
 - Import style into your web page. Choose one of the following files;
   - `style-default.css` - Contains DEFAULT theme
   - `style-bootstrap.css` - Contains Bootstrap 3 theme
   - `style-material.css` - Contains Material Design theme
+
+  ```css
+  // styles.css/styles.scss - you really only need to import the one you'll use
+  @import "~mmm-toast/lib/styles/style-default.css";
+  @import "~mmm-toast/lib/styles/style-bootstrap.css";
+  @import "~mmm-toast/lib/styles/style-material.css";
+  ```
+
 - Assign the selected theme name [`default`, `bootstrap`, `material`] to the `theme` property of the instance of ToastaConfig.
 - Add `<mmm-toast></mmm-toast>` tag in template of your application component.
 
-#### 2. Import the `ToastaModule`
-Import `ToastaModule.forRoot()` in the NgModule of your application. 
+### 2. Import the `ToastaModule`
+
+Import `ToastaModule.forRoot()` in the NgModule of your application.
 The `forRoot` method is a convention for modules that provide a singleton service.
 
 ```ts
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from '@angular/core';
 import {ToastaModule} from 'mmm-toast';
+import {AppComponent} from './app.component';
 
 @NgModule({
     imports: [
@@ -52,7 +65,7 @@ export class AppModule {
 }
 ```
 
-If you have multiple NgModules and you use one as a shared NgModule (that you import in all of your other NgModules), 
+If you have multiple NgModules and you use one as a shared NgModule (that you import in all of your other NgModules),
 don't forget that you can use it to export the `ToastaModule` that you imported in order to avoid having to import it multiple times.
 
 ```ts
@@ -67,7 +80,8 @@ export class SharedModule {
 }
 ```
 
-#### 3. Use the `ToastaService` for your application
+### 3. Use the `ToastaService` for your application
+
 - Import `ToastaService` from `mmm-toast` in your application code:
 
 ```js
@@ -75,7 +89,7 @@ import {Component} from '@angular/core';
 import {ToastaService, ToastaConfig, ToastOptions, ToastData} from 'mmm-toast';
 
 @Component({
-    selector: 'app',
+    selector: 'app-root',
     template: `
         <div>Hello world</div>
         <button (click)="addToast()">Add Toast</button>
@@ -83,27 +97,27 @@ import {ToastaService, ToastaConfig, ToastOptions, ToastData} from 'mmm-toast';
     `
 })
 export class AppComponent {
-    
-    constructor(private ToastaService:ToastaService, private ToastaConfig: ToastaConfig) { 
-        // Assign the selected theme name to the `theme` property of the instance of ToastaConfig. 
+
+    constructor(private ToastaService: ToastaService, private ToastaConfig: ToastaConfig) {
+        // Assign the selected theme name to the `theme` property of the instance of ToastaConfig.
         // Possible values: default, bootstrap, material
         this.ToastaConfig.theme = 'material';
     }
-    
+
     addToast() {
         // Just add default Toast with title only
         this.ToastaService.default('Hi there');
         // Or create the instance of ToastOptions
-        var toastOptions:ToastOptions = {
+        var toastOptions: ToastOptions = {
             title: "My title",
             msg: "The message",
             showClose: true,
             timeout: 5000,
             theme: 'default',
-            onAdd: (toast:ToastData) => {
+            onAdd: (toast: ToastData) => {
                 console.log('Toast ' + toast.id + ' has been added!');
             },
-            onRemove: function(toast:ToastData) {
+            onRemove: function(toast: ToastData) {
                 console.log('Toast ' + toast.id + ' has been removed!');
             }
         };
@@ -117,7 +131,8 @@ export class AppComponent {
 }
 ```
 
-#### 4. How to dynamically update title and message of a toast
+### 4. How to dynamically update title and message of a toast
+
 Here is an example of how to dynamically update message and title of individual toast:
 
 ```js
@@ -134,7 +149,7 @@ import {Subject, Observable, Subscription} from 'rxjs/Rx';
     `
 })
 export class AppComponent {
-    
+
     getTitle(num: number): string {
         return 'Countdown: ' + num;
     }
@@ -142,15 +157,15 @@ export class AppComponent {
     getMessage(num: number): string {
         return 'Seconds left: ' + num;
     }
-    
-    constructor(private ToastaService:ToastaService) { }
-    
+
+    constructor(private ToastaService: ToastaService) { }
+
     addToast() {
         let interval = 1000;
         let timeout = 5000;
         let seconds = timeout / 1000;
         let subscription: Subscription;
-        
+
         let toastOptions: ToastOptions = {
             title: this.getTitle(seconds),
             msg: this.getMessage(seconds),
@@ -188,7 +203,8 @@ export class AppComponent {
 }
 ```
 
-#### 5. How to close specific toast
+### 5. How to close specific toast
+
 Here is an example of how to close an individual toast:
 
 ```js
@@ -205,7 +221,7 @@ import {Subject, Observable, Subscription} from 'rxjs/Rx';
     `
 })
 export class AppComponent {
-    
+
     getTitle(num: number): string {
         return 'Countdown: ' + num;
     }
@@ -213,13 +229,13 @@ export class AppComponent {
     getMessage(num: number): string {
         return 'Seconds left: ' + num;
     }
-    
+
     constructor(private ToastaService:ToastaService) { }
-    
+
     addToast() {
         let interval = 1000;
         let subscription: Subscription;
-        
+
         let toastOptions: ToastOptions = {
             title: this.getTitle(0),
             msg: this.getMessage(0),
@@ -261,7 +277,8 @@ export class AppComponent {
 }
 ```
 
-#### 6. Customize the `mmm-toast` for your application in template
+### 6. Customize the `mmm-toast` for your application in template
+
 You can use the following properties to customize the mmm-toast component in your template:
 
 - `position` - The window position where the toast pops up. Default value is `bottom-right`. Possible values: `bottom-right`, `bottom-left`, `bottom-fullwidth` `top-right`, `top-left`, `top-fullwidth`,`top-center`, `bottom-center`, `center-center`
@@ -271,10 +288,9 @@ Example:
 <mmm-toast [position]="'top-center'"></mmm-toast>
 ```
 
+### 7. Options
 
-#### 7. Options
 Use these options to configure individual or global toasts
-
 
 Options specific to an individual toast:
 
@@ -292,8 +308,6 @@ ToastOptions
 }
 ```
 
-
-
 Configurations that affects all toasts:
 
 ```js
@@ -308,10 +322,10 @@ ToastaConfig
 }
 ```
 
+## Credits
 
-# Credits 
 Original work by [ng2-toasta](https://github.com/akserg/ng2-toasta)
 
+## License
 
-# License
  [MIT](https://github.com/stevewhitmore/mmm-toast/blob/master/LICENSE)
