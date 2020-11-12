@@ -13,7 +13,6 @@ import { ToastPositionService } from '../toast-position.service';
 export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private ToastaService: ToastaService, private toastPositionService: ToastPositionService) {
-
   }
 
   themes = [{
@@ -88,19 +87,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     type: this.types[0].code
   };
 
-
   position: string = this.positions[5].code;
   private insertedToasts: number[] = [];
   private subscription: Subscription;
-
-  getTitle(num: number): string {
-    return 'Countdown: ' + num;
-  }
-
-  getMessage(num: number): string {
-    return 'Seconds left: ' + num;
-  }
-
 
   ngOnInit() {
     this.ToastaService.events.subscribe((event: ToastaEvent) => {
@@ -113,10 +102,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+  getTitle(num: number): string {
+    return 'Countdown: ' + num;
   }
 
+  getMessage(num: number): string {
+    return 'Seconds left: ' + num;
+  }
 
   newToast() {
     const toastOptions: ToastOptions = {
@@ -200,4 +192,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.toastPositionService.setPosition(this.position);
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
