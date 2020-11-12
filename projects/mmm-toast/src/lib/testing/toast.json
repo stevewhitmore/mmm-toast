@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "title": "Some title",
+  "msg": "Some message",
+  "showClose": true,
+  "showDuration": true,
+  "type": "toasta-type-default",
+  "theme": "toasta-theme-default",
+  "timeout": 5000,
+  "onAdd": null,
+  "onRemove": null,
+  "onClick": null
+}
