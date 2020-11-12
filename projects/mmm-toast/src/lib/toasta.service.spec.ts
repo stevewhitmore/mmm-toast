@@ -1,15 +1,15 @@
-import { TestBed, inject } from '@angular/core/testing';
+// import { TestBed, inject } from '@angular/core/testing';
 
-import { ToastaService } from './toasta.service';
+// import { ToastaService } from './toasta.service';
 
-describe('NgxToastaService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [ToastaService]
-    });
-  });
+// describe('NgxToastaService', () => {
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       providers: [ToastaService]
+//     });
+//   });
 
-  it('should be created', inject([ToastaService], (service: ToastaService) => {
-    expect(service).toBeTruthy();
-  }));
-});
+//   it('should be created', inject([ToastaService], (service: ToastaService) => {
+//     expect(service).toBeTruthy();
+//   }));
+// });

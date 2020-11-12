@@ -97,6 +97,7 @@ export class ToastaComponent implements OnInit {
    * Add new Toast
    */
   add(toast: ToastData) {
+    console.log('toast:', toast)
     // If we've gone over our limit, remove the earliest
     // one from the array
     if (this.config.limit && this.toasts.length >= this.config.limit) {

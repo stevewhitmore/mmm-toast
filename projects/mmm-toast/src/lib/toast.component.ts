@@ -7,29 +7,20 @@ import { ToastData } from './toasta.service';
  */
 @Component({
   selector: 'ngx-toast',
-  template: `
-        <div class="toast" [ngClass]="[toast.type, toast.theme]">
-            <div *ngIf="toast.showClose" class="close-button" (click)="close($event)"></div>
-            <div *ngIf="toast.title || toast.msg" class="toast-text">
-                <span *ngIf="toast.title" class="toast-title" [innerHTML]="toast.title | safeHtml"></span>
-                <br *ngIf="toast.title && toast.msg" />
-                <span *ngIf="toast.msg" class="toast-msg" [innerHtml]="toast.msg | safeHtml"></span>
-            </div>
-            <div class="durationbackground" *ngIf="toast.showDuration && toast.timeout > 0">
-                <div class="durationbar" [style.width.%]="progressPercent">
-                </div>
-            </div>
-        </div>`
+  templateUrl: './toast.component.html'
 })
 export class ToastComponent implements AfterViewInit {
-
+  @Input() toast: ToastData;
+  @Output('closeToast') closeToastEvent = new EventEmitter();
   progressInterval: number;
   progressPercent = 0;
   startTime: number = performance.now();
-  @Input() toast: ToastData;
-  @Output('closeToast') closeToastEvent = new EventEmitter();
 
   ngAfterViewInit() {
+    this.handleProgress();
+  }
+
+  handleProgress() {
     if (this.toast.showDuration && this.toast.timeout > 0) {
       this.progressInterval = window.setInterval(() => {
         this.progressPercent = (100 - ((performance.now() - this.startTime) / this.toast.timeout * 100)); // Descending progress

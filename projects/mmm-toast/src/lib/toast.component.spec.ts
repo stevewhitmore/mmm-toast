@@ -1,25 +1,46 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SafeHtmlPipe } from './shared';
 
 import { ToastComponent } from './toast.component';
+
+const toastMockData = require('./testing/toast.json');
 
 describe('ToastComponent', () => {
   let component: ToastComponent;
   let fixture: ComponentFixture<ToastComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ToastComponent ]
-    })
-    .compileComponents();
-  }));
+  let event;
 
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [ 
+        ToastComponent, 
+        SafeHtmlPipe 
+      ]
+    });
+
     fixture = TestBed.createComponent(ToastComponent);
     component = fixture.componentInstance;
+    component.toast = toastMockData;
+    
+    event = {
+      preventDefault: function() {}
+    }
+
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  describe('handleProgress()', () => {
+
+  }); // handleProgress()
+
+  describe('close()', () => {
+    it('should call closeToastEvent.next', () => {
+      const spy = spyOn(component.closeToastEvent, 'next').and.callThrough();
+
+      component.close(event);
+
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spy).toHaveBeenCalledWith(component.toast);
+    });
+  }); // close()
 });
