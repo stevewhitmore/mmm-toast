@@ -27,9 +27,10 @@ describe('ToastModalComponent', () => {
     fixture.detectChanges();
   });
 
-  // describe('handleProgress()', () => {
-    // this should be handled with e2e tests
-  // }); // handleProgress()
+
+  /**
+   * handleProgress() should be handled with e2e tests
+   * */
 
   describe('close()', () => {
     it('should call closeToastEvent.next', () => {
