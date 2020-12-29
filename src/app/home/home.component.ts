@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject, Observable, Subscription, interval } from 'rxjs';
+import { Subscription, interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { ToastaService, ToastaConfig, ToastOptions, ToastData, ToastaEvent, ToastaEventType } from '../../../projects/mmm-toast/src/public_api';
+import { ToastaService, ToastOptionsModel, ToastDataModel, ToastaEvent, ToastaEventType } from '../../../projects/mmm-toast/src/public_api';
 
 import { ToastPositionService } from '../toast-position.service';
 
@@ -94,7 +94,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.ToastaService.events.subscribe((event: ToastaEvent) => {
       if (event.type === ToastaEventType.ADD) {
-        const toast: ToastData = event.value;
+        const toast: ToastDataModel = event.value;
         this.insertedToasts.push(toast.id);
       } else if (event.type === ToastaEventType.CLEAR_ALL) {
         this.insertedToasts = [];
@@ -111,7 +111,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   newToast() {
-    const toastOptions: ToastOptions = {
+    const toastOptionsModel: ToastOptionsModel = {
       title: this.options.title,
       msg: this.options.msg,
       showClose: this.options.showClose,
@@ -119,21 +119,21 @@ export class HomeComponent implements OnInit, OnDestroy {
       timeout: this.options.timeout,
       theme: this.options.theme,
       // position: this.options.position,
-      onAdd: (toast: ToastData) => {
+      onAdd: (toast: ToastDataModel) => {
         console.log('Toast ' + toast.id + ' has been added!');
       },
-      onRemove(toast: ToastData) {
+      onRemove(toast: ToastDataModel) {
         console.log('Toast ' + toast.id + ' has been removed!');
       }
     };
 
     switch (this.options.type) {
-      case 'default': this.ToastaService.default(toastOptions); break;
-      case 'info': this.ToastaService.info(toastOptions); break;
-      case 'success': this.ToastaService.success(toastOptions); break;
-      case 'wait': this.ToastaService.wait(toastOptions); break;
-      case 'error': this.ToastaService.error(toastOptions); break;
-      case 'warning': this.ToastaService.warning(toastOptions); break;
+      case 'default': this.ToastaService.default(toastOptionsModel); break;
+      case 'info': this.ToastaService.info(toastOptionsModel); break;
+      case 'success': this.ToastaService.success(toastOptionsModel); break;
+      case 'wait': this.ToastaService.wait(toastOptionsModel); break;
+      case 'error': this.ToastaService.error(toastOptionsModel); break;
+      case 'warning': this.ToastaService.warning(toastOptionsModel); break;
     }
   }
 
@@ -142,14 +142,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     const seconds = this.options.timeout / 1000;
     let subscription: Subscription;
 
-    const toastOptions: ToastOptions = {
+    const toastOptionsModel: ToastOptionsModel = {
       title: this.getTitle(seconds || 0),
       msg: this.getMessage(seconds || 0),
       showClose: this.options.showClose,
       showDuration: this.options.showDuration,
       timeout: this.options.timeout,
       theme: this.options.theme,
-      onAdd: (toast: ToastData) => {
+      onAdd: (toast: ToastDataModel) => {
         console.log('Toast ' + toast.id + ' has been added!');
         // Run the timer with 1 second iterval
         const observable = interval(interval_).pipe(take(seconds));
@@ -162,7 +162,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         });
 
       },
-      onRemove(toast: ToastData) {
+      onRemove(toast: ToastDataModel) {
         console.log('Toast ' + toast.id + ' has been removed!');
         // Stop listenning
         subscription.unsubscribe();
@@ -170,12 +170,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
 
     switch (this.options.type) {
-      case 'default': this.ToastaService.default(toastOptions); break;
-      case 'info': this.ToastaService.info(toastOptions); break;
-      case 'success': this.ToastaService.success(toastOptions); break;
-      case 'wait': this.ToastaService.wait(toastOptions); break;
-      case 'error': this.ToastaService.error(toastOptions); break;
-      case 'warning': this.ToastaService.warning(toastOptions); break;
+      case 'default': this.ToastaService.default(toastOptionsModel); break;
+      case 'info': this.ToastaService.info(toastOptionsModel); break;
+      case 'success': this.ToastaService.success(toastOptionsModel); break;
+      case 'wait': this.ToastaService.wait(toastOptionsModel); break;
+      case 'error': this.ToastaService.error(toastOptionsModel); break;
+      case 'warning': this.ToastaService.warning(toastOptionsModel); break;
     }
   }
 

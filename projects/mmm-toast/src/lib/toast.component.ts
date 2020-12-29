@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, Input, Output, EventEmitter } from '@angular/core';
+import {AfterViewInit, Component, Input, Output, EventEmitter} from '@angular/core';
 
-import { ToastData } from './toasta.service';
+import {ToastDataModel} from './models/toast-data.model';
 
 /**
  * A Toast component shows message with title and close button.
@@ -10,7 +10,7 @@ import { ToastData } from './toasta.service';
   templateUrl: './toast.component.html'
 })
 export class ToastComponent implements AfterViewInit {
-  @Input() toast: ToastData;
+  @Input() toast: ToastDataModel;
   @Output('closeToast') closeToastEvent = new EventEmitter();
   progressInterval: number;
   progressPercent = 0;

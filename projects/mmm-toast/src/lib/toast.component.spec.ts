@@ -12,16 +12,16 @@ describe('ToastComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ 
-        ToastComponent, 
-        SafeHtmlPipe 
+      declarations: [
+        ToastComponent,
+        SafeHtmlPipe
       ]
     });
 
     fixture = TestBed.createComponent(ToastComponent);
     component = fixture.componentInstance;
     component.toast = toastMockData;
-    
+
     event = {
       preventDefault: function() {}
     }
@@ -29,9 +29,9 @@ describe('ToastComponent', () => {
     fixture.detectChanges();
   });
 
-  describe('handleProgress()', () => {
-
-  }); // handleProgress()
+  // describe('handleProgress()', () => {
+    // this should be handled with e2e tests
+  // }); // handleProgress()
 
   describe('close()', () => {
     it('should call closeToastEvent.next', () => {

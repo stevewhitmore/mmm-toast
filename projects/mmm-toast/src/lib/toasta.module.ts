@@ -5,24 +5,19 @@ import { CommonModule } from '@angular/common';
 import { ToastaComponent } from './toasta.component';
 import { ToastComponent } from './toast.component';
 import { SafeHtmlPipe } from './shared';
-import { ToastaService, ToastaConfig, ToastaServiceFactory } from './toasta.service';
-
-export let providers = [
-  ToastaConfig,
-  { provide: ToastaService, useFactory: ToastaServiceFactory, deps: [ToastaConfig] }
-];
+import { ToastaService } from './services/toasta.service';
+import {ToastaConfigService} from './services/toasta-config.service'
 
 @NgModule({
   imports: [CommonModule],
   declarations: [ToastComponent, ToastaComponent, SafeHtmlPipe],
-  exports: [ToastComponent, ToastaComponent],
-  providers
+  exports: [ToastComponent, ToastaComponent]
 })
 export class ToastaModule {
   static forRoot(): ModuleWithProviders<ToastaModule> {
     return {
       ngModule: ToastaModule,
-      providers
+      providers: [ ToastaConfigService, ToastaService ]
     };
   }
 }

@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
-import { isString, isNumber, isFunction } from './toasta.utils';
+import { isString, isNumber, isFunction } from '../toasta.utils';
 
-import {ToastOptionsModel} from './models/toast-options.model';
-import {ToastDataModel} from './models/toast-data.model';
+import {ToastOptionsModel} from '../models/toast-options.model';
+import {ToastaConfigService} from './toasta-config.service';
+import {ToastDataModel} from '../models/toast-data.model';
 
-import {ToastaEvent} from './state/toasta.event';
-import {ToastaEventType} from './state/toasta-event-type.enum';
-
-import {ToastaConfigService} from './models/toasta-config.service';
+import {ToastaEvent} from '../state/toasta.event';
+import {ToastaEventType} from '../state/toasta-event-type.enum';
 
 /**
  * Toasta service helps create different kinds of Toasts

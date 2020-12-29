@@ -1,6 +1,6 @@
 # mmm-toast [![npm version](https://badge.fury.io/js/mmm-toast.svg)](https://badge.fury.io/js/mmm-toast) [![npm monthly downloads](https://img.shields.io/npm/dm/mmm-toast.svg?style=flat-square)](https://www.npmjs.com/package/mmm-toast)
 
-An angularX toast component that shows growl-style alerts and messages for your application.
+An Angular toast component that shows growl-style alerts and messages for your application.
 This is a continuation of the legacy previously championed by [ngx-toasta](https://github.com/emonney/ngx-toasta)
 and before that [ng2-toasta](https://github.com/akserg/ng2-toasta) with the latest package versions and additional enhancements.
 
@@ -45,7 +45,7 @@ System.config({
 
 ### 2. Import the `ToastaModule`
 
-Import `ToastaModule.forRoot()` in the NgModule of your application.
+Import `ToastaModule` in the NgModule of your application.
 The `forRoot` method is a convention for modules that provide a singleton service.
 
 ```ts

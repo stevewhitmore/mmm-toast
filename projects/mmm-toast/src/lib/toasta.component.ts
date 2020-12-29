@@ -1,7 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
-import { isFunction } from './toasta.utils';
-import { ToastaService, ToastData, ToastaConfig, ToastaEvent, ToastaEventType } from './toasta.service';
+import {isFunction} from './toasta.utils';
+import {ToastaService} from './services/toasta.service';
+
+import {ToastaEvent} from './state/toasta.event';
+import {ToastaEventType} from './state/toasta-event-type.enum';
+
+import {ToastaConfigService} from './services/toasta-config.service';
+import {ToastDataModel} from './models/toast-data.model';
 
 /**
  * Toasta is container for Toast components
@@ -55,9 +61,10 @@ export class ToastaComponent implements OnInit {
   }
 
   // The storage for toasts.
-  toasts: Array<ToastData> = [];
+  toasts: Array<ToastDataModel> = [];
 
-  constructor(private config: ToastaConfig, private ToastaService: ToastaService) {
+  constructor(private config: ToastaConfigService,
+              private toastaService: ToastaService) {
     // Initialise position
     this.position = '';
   }
@@ -68,18 +75,18 @@ export class ToastaComponent implements OnInit {
    * directive is instantiated.
    */
   ngOnInit(): any {
-    // We listen events from our service
-    this.ToastaService.events.subscribe((event: ToastaEvent) => {
+    this.listenForToastEvent();
+  }
+
+  listenForToastEvent() {
+    this.toastaService.events.subscribe((event: ToastaEvent) => {
       if (event.type === ToastaEventType.ADD) {
-        // Add the new one
-        const toast: ToastData = event.value;
+        const toast: ToastDataModel = event.value;
         this.add(toast);
       } else if (event.type === ToastaEventType.CLEAR) {
-        // Clear the one by number
         const id: number = event.value;
         this.clear(id);
       } else if (event.type === ToastaEventType.CLEAR_ALL) {
-        // Lets clear all toasts
         this.clearAll();
       }
     });
@@ -89,14 +96,14 @@ export class ToastaComponent implements OnInit {
    * Event listener of 'closeToast' event comes from ToastaComponent.
    * This method removes ToastComponent assosiated with this Toast.
    */
-  closeToast(toast: ToastData) {
+  closeToast(toast: ToastDataModel) {
     this.clear(toast.id);
   }
 
   /**
    * Add new Toast
    */
-  add(toast: ToastData) {
+  add(toast: ToastDataModel) {
     console.log('toast:', toast)
     // If we've gone over our limit, remove the earliest
     // one from the array
@@ -147,7 +154,7 @@ export class ToastaComponent implements OnInit {
   /**
    * Custom setTimeout function for specific setTimeouts on individual toasts.
    */
-  private _setTimeout(toast: ToastData) {
+  private _setTimeout(toast: ToastDataModel) {
     window.setTimeout(() => {
       this.clear(toast.id);
     }, toast.timeout);
