@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class ToastaConfigService {
+export class ToastConfigService {
 
   // Maximum number of toasties to show at once
   limit = 5;

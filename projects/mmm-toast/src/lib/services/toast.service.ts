@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
-import { isString, isNumber, isFunction } from '../toasta.utils';
+import { isString, isNumber, isFunction } from '../toast.utils';
 
 import {ToastOptionsModel} from '../models/toast-options.model';
-import {ToastaConfigService} from './toasta-config.service';
+import {ToastConfigService} from './toast-config.service';
 import {ToastDataModel} from '../models/toast-data.model';
 
-import {ToastaEvent} from '../state/toasta.event';
-import {ToastaEventType} from '../state/toasta-event-type.enum';
+import {ToastEvent} from '../state/toast.event';
+import {ToastEventType} from '../state/toast-event-type.enum';
 
 /**
  * Toasta service helps create different kinds of Toasts
@@ -16,14 +16,14 @@ import {ToastaEventType} from '../state/toasta-event-type.enum';
 @Injectable({
   providedIn: 'root'
 })
-export class ToastaService {
+export class ToastService {
   static THEMES: Array<string> = ['default', 'material', 'bootstrap'];
   uniqueCounter = 0;
 
-  private eventSource: Subject<ToastaEvent> = new Subject<ToastaEvent>();
-  public events: Observable<ToastaEvent> = this.eventSource.asObservable();
+  private eventSource: Subject<ToastEvent> = new Subject<ToastEvent>();
+  public events: Observable<ToastEvent> = this.eventSource.asObservable();
 
-  constructor(private config: ToastaConfigService) {
+  constructor(private config: ToastConfigService) {
   }
   /**
    * Create Toast of a default type
@@ -103,7 +103,7 @@ export class ToastaService {
     // If we have a theme set, make sure it's a valid one
     let theme: string;
     if (toastaOptions.theme) {
-      theme = ToastaService.THEMES.indexOf(toastaOptions.theme) > -1 ? toastaOptions.theme : this.config.theme;
+      theme = ToastService.THEMES.indexOf(toastaOptions.theme) > -1 ? toastaOptions.theme : this.config.theme;
     } else {
       theme = this.config.theme;
     }
@@ -127,7 +127,7 @@ export class ToastaService {
     // Push up a new toast item
     // this.toastsSubscriber.next(toast);
     // this.toastsEmitter.next(toast);
-    this.emitEvent(new ToastaEvent(ToastaEventType.ADD, toast));
+    this.emitEvent(new ToastEvent(ToastEventType.ADD, toast));
     // If we have a onAdd function, call it here
     if (toastaOptions.onAdd && isFunction(toastaOptions.onAdd)) {
       toastaOptions.onAdd.call(this, toast);
@@ -137,13 +137,13 @@ export class ToastaService {
   // Clear all toasts
   clearAll() {
     // this.clearEmitter.next(null);
-    this.emitEvent(new ToastaEvent(ToastaEventType.CLEAR_ALL));
+    this.emitEvent(new ToastEvent(ToastEventType.CLEAR_ALL));
   }
 
   // Clear the specific one
   clear(id: number) {
     // this.clearEmitter.next(id);
-    this.emitEvent(new ToastaEvent(ToastaEventType.CLEAR, id));
+    this.emitEvent(new ToastEvent(ToastEventType.CLEAR, id));
   }
 
   // Checks whether the local option is set, if not,
@@ -158,7 +158,7 @@ export class ToastaService {
     }
   }
 
-  private emitEvent(event: ToastaEvent) {
+  private emitEvent(event: ToastEvent) {
     if (this.eventSource) {
       // Push up a new event
       this.eventSource.next(event);

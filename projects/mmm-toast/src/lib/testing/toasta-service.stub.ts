@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable()
-export class ToastaServiceStub {
+export class ToastServiceStub {
   static THEMES: Array<string> = ['default', 'material', 'bootstrap'];
   uniqueCounter = 0;
 

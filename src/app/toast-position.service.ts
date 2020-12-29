@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 
 
 /**
- * Service helps communicate between the ToastComponent and AppComponent.
+ * Service helps communicate between the ToastModalComponent and AppComponent.
  */
 @Injectable({
   providedIn: 'root'
