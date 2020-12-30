@@ -32,10 +32,6 @@ export class ToastModalComponent implements AfterViewInit {
     }
   }
 
-  /**
-   * Event handler invokes when user clicks on close button.
-   * This method emit new event into ToastaContainer to close it.
-   */
   close($event: any) {
     $event.preventDefault();
     this.closeToastEvent.next(this.toast);

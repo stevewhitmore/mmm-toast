@@ -104,7 +104,6 @@ export class ToastComponent implements OnInit {
    * Add new Toast
    */
   add(toast: ToastDataModel) {
-    console.log('toast:', toast)
     // If we've gone over our limit, remove the earliest
     // one from the array
     if (this.config.limit && this.toasts.length >= this.config.limit) {
@@ -116,7 +115,7 @@ export class ToastComponent implements OnInit {
     // If there's a timeout individually or globally,
     // set the toast to timeout
     if (+toast.timeout) {
-      this._setTimeout(toast);
+      this.closeAfterTimeout(toast);
     }
   }
 
@@ -154,7 +153,7 @@ export class ToastComponent implements OnInit {
   /**
    * Custom setTimeout function for specific setTimeouts on individual toasts.
    */
-  private _setTimeout(toast: ToastDataModel) {
+  closeAfterTimeout(toast: ToastDataModel) {
     window.setTimeout(() => {
       this.clear(toast.id);
     }, toast.timeout);
