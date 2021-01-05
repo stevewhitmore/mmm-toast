@@ -1,6 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ToastModalComponent } from './toast-modal.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ToastModalComponent} from './toast-modal.component';
 
 const toastMockData = require('./testing/toast.json');
 

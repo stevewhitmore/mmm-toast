@@ -64,7 +64,7 @@ export class ToastComponent implements OnInit {
   toasts: Array<ToastDataModel> = [];
 
   constructor(private config: ToastConfigService,
-              private toastaService: ToastService) {
+              private toastService: ToastService) {
     // Initialise position
     this.position = '';
   }
@@ -79,7 +79,7 @@ export class ToastComponent implements OnInit {
   }
 
   listenForToastEvent() {
-    this.toastaService.events.subscribe((event: ToastEvent) => {
+    this.toastService.event$.subscribe((event: ToastEvent) => {
       if (event.type === ToastEventType.ADD) {
         const toast: ToastDataModel = event.value;
         this.add(toast);

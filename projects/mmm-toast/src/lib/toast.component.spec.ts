@@ -1,15 +1,13 @@
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
-
-import { ToastComponent } from './toast.component';
-import { ToastService } from './services/toast.service';
-import { ToastConfigService } from './services/toast-config.service';
-import { ToastServiceStub } from './testing/toasta-service.stub';
-import { ToastEventType } from './state/toast-event-type.enum';
-import { ToastDataModel } from './models/toast-data.model';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {ComponentFixture, fakeAsync, flush, TestBed, tick} from '@angular/core/testing';
+import {ToastComponent} from './toast.component';
+import {ToastService} from './services/toast.service';
+import {ToastConfigService} from './services/toast-config.service';
+import {ToastServiceStub} from './testing/toasta-service.stub';
+import {ToastEventType} from './state/toast-event-type.enum';
+import {ToastDataModel} from './models/toast-data.model';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 
 const toastServiceStub = new ToastServiceStub();
-const config = new ToastConfigService();
 
 describe('ToastComponent', () => {
   let component: ToastComponent;
@@ -21,7 +19,8 @@ describe('ToastComponent', () => {
       declarations: [ToastComponent],
       providers: [
         {provide: ToastService, useValue: toastServiceStub},
-        ToastConfigService],
+        ToastConfigService,
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
 

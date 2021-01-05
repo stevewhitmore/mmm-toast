@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
+import {ToastEvent} from '../state/toast.event';
 
 @Injectable()
 export class ToastServiceStub {
@@ -7,12 +8,9 @@ export class ToastServiceStub {
   uniqueCounter = 0;
 
   private eventSource: Subject<any> = new Subject<any>();
-  public events: Observable<any> = this.eventSource.asObservable();
+  public event$: Observable<any> = this.eventSource.asObservable();
 
-  public emitEvent(event: any) {
-    if (this.eventSource) {
-      // Push up a new event
-      this.eventSource.next(event);
-    }
+  emitEvent(event: ToastEvent) {
+    this.eventSource.next(event);
   }
 }

@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
 
-import { isString, isNumber, isFunction } from '../toast.utils';
+import {isString, isNumber, isFunction} from '../toast.utils';
 
 import {ToastOptionsModel} from '../models/toast-options.model';
 import {ToastConfigService} from './toast-config.service';
@@ -11,7 +11,7 @@ import {ToastEvent} from '../state/toast.event';
 import {ToastEventType} from '../state/toast-event-type.enum';
 
 /**
- * Toasta service helps create different kinds of Toasts
+ * Helps create different kinds of Toasts
  */
 @Injectable({
   providedIn: 'root'
@@ -21,71 +21,47 @@ export class ToastService {
   uniqueCounter = 0;
 
   private eventSource: Subject<ToastEvent> = new Subject<ToastEvent>();
-  public events: Observable<ToastEvent> = this.eventSource.asObservable();
+  public event$: Observable<ToastEvent> = this.eventSource.asObservable();
 
   constructor(private config: ToastConfigService) {
   }
-  /**
-   * Create Toast of a default type
-   */
+
   default(options: ToastOptionsModel | string | number): void {
     this.add(options, 'default');
   }
 
-  /**
-   * Create Toast of info type
-   * @param options Individual toasta config overrides
-   */
   info(options: ToastOptionsModel | string | number): void {
     this.add(options, 'info');
   }
 
-  /**
-   * Create Toast of success type
-   * @param options Individual toasta config overrides
-   */
   success(options: ToastOptionsModel | string | number): void {
     this.add(options, 'success');
   }
 
-  /**
-   * Create Toast of wait type
-   * @param options Individual toasta config overrides
-   */
   wait(options: ToastOptionsModel | string | number): void {
     this.add(options, 'wait');
   }
 
-  /**
-   * Create Toast of error type
-   * @param options Individual toasta config overrides
-   */
   error(options: ToastOptionsModel | string | number): void {
     this.add(options, 'error');
   }
 
-  /**
-   * Create Toast of warning type
-   * @param options Individual toasta config overrides
-   */
   warning(options: ToastOptionsModel | string | number): void {
     this.add(options, 'warning');
   }
 
-
-  // Add a new toast item
-  private add(options: ToastOptionsModel | string | number, type: string) {
-    let toastaOptions: ToastOptionsModel;
+  add(options: ToastOptionsModel | string | number, type: string) {
+    let toastOptions: ToastOptionsModel;
 
     if (isString(options) && options !== '' || isNumber(options)) {
-      toastaOptions = {
+      toastOptions = {
         title: options.toString()
       } as ToastOptionsModel;
     } else {
-      toastaOptions = options as ToastOptionsModel;
+      toastOptions = options as ToastOptionsModel;
     }
 
-    if (!toastaOptions || !toastaOptions.title && !toastaOptions.msg) {
+    if (!toastOptions || !toastOptions.title && !toastOptions.msg) {
       throw new Error('mmm-toast: No toast title or message specified!');
     }
 
@@ -95,60 +71,56 @@ export class ToastService {
     this.uniqueCounter++;
 
     // Set the local vs global config items
-    const showClose = this._checkConfigItem(this.config, toastaOptions, 'showClose');
+    const showClose = this.checkConfigItem(this.config, toastOptions, 'showClose');
 
     // Set the local vs global config items
-    const showDuration = this._checkConfigItem(this.config, toastaOptions, 'showDuration');
+    const showDuration = this.checkConfigItem(this.config, toastOptions, 'showDuration');
 
     // If we have a theme set, make sure it's a valid one
     let theme: string;
-    if (toastaOptions.theme) {
-      theme = ToastService.THEMES.indexOf(toastaOptions.theme) > -1 ? toastaOptions.theme : this.config.theme;
+    if (toastOptions.theme) {
+      theme = ToastService.THEMES.indexOf(toastOptions.theme) > -1 ? toastOptions.theme : this.config.theme;
     } else {
       theme = this.config.theme;
     }
 
     const toast: ToastDataModel = {
       id: this.uniqueCounter,
-      title: toastaOptions.title,
-      msg: toastaOptions.msg,
+      title: toastOptions.title,
+      msg: toastOptions.msg,
       showClose,
       showDuration,
       type: 'toasta-type-' + type,
       theme: 'toasta-theme-' + theme,
-      onAdd: toastaOptions.onAdd && isFunction(toastaOptions.onAdd) ? toastaOptions.onAdd : null,
-      onRemove: toastaOptions.onRemove && isFunction(toastaOptions.onRemove) ? toastaOptions.onRemove : null
+      onAdd: toastOptions.onAdd && isFunction(toastOptions.onAdd) ? toastOptions.onAdd : null,
+      onRemove: toastOptions.onRemove && isFunction(toastOptions.onRemove) ? toastOptions.onRemove : null
     } as ToastDataModel;
 
     // If there's a timeout individually or globally, set the toast to timeout
     // Allows a caller to pass null/0 and override the default. Can also set the default to null/0 to turn off.
-    toast.timeout = toastaOptions.hasOwnProperty('timeout') ? toastaOptions.timeout : this.config.timeout;
+    toast.timeout = toastOptions.hasOwnProperty('timeout') ? toastOptions.timeout : this.config.timeout;
 
     // Push up a new toast item
     // this.toastsSubscriber.next(toast);
     // this.toastsEmitter.next(toast);
     this.emitEvent(new ToastEvent(ToastEventType.ADD, toast));
     // If we have a onAdd function, call it here
-    if (toastaOptions.onAdd && isFunction(toastaOptions.onAdd)) {
-      toastaOptions.onAdd.call(this, toast);
+    if (toastOptions.onAdd && isFunction(toastOptions.onAdd)) {
+      toastOptions.onAdd.call(this, toast);
     }
   }
 
-  // Clear all toasts
   clearAll() {
-    // this.clearEmitter.next(null);
     this.emitEvent(new ToastEvent(ToastEventType.CLEAR_ALL));
   }
 
-  // Clear the specific one
   clear(id: number) {
-    // this.clearEmitter.next(id);
     this.emitEvent(new ToastEvent(ToastEventType.CLEAR, id));
   }
 
   // Checks whether the local option is set, if not,
   // checks the global config
-  private _checkConfigItem(config: any, options: any, property: string) {
+  checkConfigItem(config: any, options: any, property: string) {
     if (options[property] === false) {
       return false;
     } else if (!options[property]) {
@@ -158,10 +130,7 @@ export class ToastService {
     }
   }
 
-  private emitEvent(event: ToastEvent) {
-    if (this.eventSource) {
-      // Push up a new event
-      this.eventSource.next(event);
-    }
+  emitEvent(event: ToastEvent) {
+    this.eventSource.next(event);
   }
 }
