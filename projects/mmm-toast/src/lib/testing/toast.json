@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "title": "Some title",
+  "msg": "Some message",
+  "showClose": true,
+  "showDuration": true,
+  "type": "toast-type-default",
+  "theme": "toast-theme-default",
+  "timeout": 5000,
+  "onAdd": null,
+  "onRemove": null,
+  "onClick": null
+}

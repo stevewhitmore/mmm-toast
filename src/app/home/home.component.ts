@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject, Observable, Subscription, interval } from 'rxjs';
+import { Subscription, interval } from 'rxjs';
 import { take } from 'rxjs/operators';
 
-import { ToastaService, ToastaConfig, ToastOptions, ToastData, ToastaEvent, ToastaEventType } from '../../../projects/mmm-toast/src/public_api';
+import { ToastService, ToastOptionsModel, ToastDataModel, ToastEvent, ToastEventType } from '../../../projects/mmm-toast/src/public_api';
 
 import { ToastPositionService } from '../toast-position.service';
 
@@ -12,8 +12,7 @@ import { ToastPositionService } from '../toast-position.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  constructor(private ToastaService: ToastaService, private toastPositionService: ToastPositionService) {
-
+  constructor(private ToastService: ToastService, private toastPositionService: ToastPositionService) {
   }
 
   themes = [{
@@ -88,10 +87,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     type: this.types[0].code
   };
 
-
   position: string = this.positions[5].code;
   private insertedToasts: number[] = [];
   private subscription: Subscription;
+
+  ngOnInit() {
+    this.ToastService.events.subscribe((event: ToastEvent) => {
+      if (event.type === ToastEventType.ADD) {
+        const toast: ToastDataModel = event.value;
+        this.insertedToasts.push(toast.id);
+      } else if (event.type === ToastEventType.CLEAR_ALL) {
+        this.insertedToasts = [];
+      }
+    });
+  }
 
   getTitle(num: number): string {
     return 'Countdown: ' + num;
@@ -101,25 +110,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     return 'Seconds left: ' + num;
   }
 
-
-  ngOnInit() {
-    this.ToastaService.events.subscribe((event: ToastaEvent) => {
-      if (event.type === ToastaEventType.ADD) {
-        const toast: ToastData = event.value;
-        this.insertedToasts.push(toast.id);
-      } else if (event.type === ToastaEventType.CLEAR_ALL) {
-        this.insertedToasts = [];
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-
   newToast() {
-    const toastOptions: ToastOptions = {
+    const toastOptionsModel: ToastOptionsModel = {
       title: this.options.title,
       msg: this.options.msg,
       showClose: this.options.showClose,
@@ -127,21 +119,21 @@ export class HomeComponent implements OnInit, OnDestroy {
       timeout: this.options.timeout,
       theme: this.options.theme,
       // position: this.options.position,
-      onAdd: (toast: ToastData) => {
+      onAdd: (toast: ToastDataModel) => {
         console.log('Toast ' + toast.id + ' has been added!');
       },
-      onRemove(toast: ToastData) {
+      onRemove(toast: ToastDataModel) {
         console.log('Toast ' + toast.id + ' has been removed!');
       }
     };
 
     switch (this.options.type) {
-      case 'default': this.ToastaService.default(toastOptions); break;
-      case 'info': this.ToastaService.info(toastOptions); break;
-      case 'success': this.ToastaService.success(toastOptions); break;
-      case 'wait': this.ToastaService.wait(toastOptions); break;
-      case 'error': this.ToastaService.error(toastOptions); break;
-      case 'warning': this.ToastaService.warning(toastOptions); break;
+      case 'default': this.ToastService.default(toastOptionsModel); break;
+      case 'info': this.ToastService.info(toastOptionsModel); break;
+      case 'success': this.ToastService.success(toastOptionsModel); break;
+      case 'wait': this.ToastService.wait(toastOptionsModel); break;
+      case 'error': this.ToastService.error(toastOptionsModel); break;
+      case 'warning': this.ToastService.warning(toastOptionsModel); break;
     }
   }
 
@@ -150,14 +142,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     const seconds = this.options.timeout / 1000;
     let subscription: Subscription;
 
-    const toastOptions: ToastOptions = {
+    const toastOptionsModel: ToastOptionsModel = {
       title: this.getTitle(seconds || 0),
       msg: this.getMessage(seconds || 0),
       showClose: this.options.showClose,
       showDuration: this.options.showDuration,
       timeout: this.options.timeout,
       theme: this.options.theme,
-      onAdd: (toast: ToastData) => {
+      onAdd: (toast: ToastDataModel) => {
         console.log('Toast ' + toast.id + ' has been added!');
         // Run the timer with 1 second iterval
         const observable = interval(interval_).pipe(take(seconds));
@@ -170,7 +162,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         });
 
       },
-      onRemove(toast: ToastData) {
+      onRemove(toast: ToastDataModel) {
         console.log('Toast ' + toast.id + ' has been removed!');
         // Stop listenning
         subscription.unsubscribe();
@@ -178,21 +170,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
 
     switch (this.options.type) {
-      case 'default': this.ToastaService.default(toastOptions); break;
-      case 'info': this.ToastaService.info(toastOptions); break;
-      case 'success': this.ToastaService.success(toastOptions); break;
-      case 'wait': this.ToastaService.wait(toastOptions); break;
-      case 'error': this.ToastaService.error(toastOptions); break;
-      case 'warning': this.ToastaService.warning(toastOptions); break;
+      case 'default': this.ToastService.default(toastOptionsModel); break;
+      case 'info': this.ToastService.info(toastOptionsModel); break;
+      case 'success': this.ToastService.success(toastOptionsModel); break;
+      case 'wait': this.ToastService.wait(toastOptionsModel); break;
+      case 'error': this.ToastService.error(toastOptionsModel); break;
+      case 'warning': this.ToastService.warning(toastOptionsModel); break;
     }
   }
 
   clearToasties() {
-    this.ToastaService.clearAll();
+    this.ToastService.clearAll();
   }
 
   clearLastToast() {
-    this.ToastaService.clear(this.insertedToasts.pop());
+    this.ToastService.clear(this.insertedToasts.pop());
   }
 
   changePosition($event) {
@@ -200,4 +192,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.toastPositionService.setPosition(this.position);
   }
 
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

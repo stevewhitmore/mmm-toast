@@ -3,10 +3,10 @@
   <form>
     <div class="row">
       <div class="four columns">
-        <label for="title">Title <small class="form-hint">(Supports HTML)</small></label>
+        <label for="title">Title</label>
         <input class="u-full-width" type="text" id="title" [(ngModel)]="options.title" name="title">
 
-        <label for="msg">Message <small class="form-hint">(Supports HTML)</small></label>
+        <label for="msg">Message</label>
         <input class="u-full-width" type="text" id="msg" [(ngModel)]="options.msg" name="msg">
 
         <label for="theme">Theme</label>
@@ -37,7 +37,7 @@
       <div class="four columns">
         <pre>
         <code>
-          ToastaService<span ng-if="options.type != 'default'">.{{ options.type }}</span>({{ '{' }}
+          ToastService<span ng-if="options.type != 'default'">.{{ options.type }}</span>({{ '{' }}
             title: "{{ options.title }}",
             msg: "{{ options.msg }}",
             showClose: {{ options.showClose }},

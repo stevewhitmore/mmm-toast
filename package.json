@@ -16,10 +16,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
     "build-prod": "ng build mmm-toast --prod && node ./scripts/copy-styles.js",
     "gh-pages": "ng build --prod --output-path docs --base-href /mmm-toast/",
-    "test": "ng test",
+    "test": "ng test mmm-toast --browsers=ChromiumHeadless",
+    "test-local": "ng test mmm-toast --browsers=Chromium --watch=true",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -53,6 +53,7 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "ncp": "^2.0.0",
     "ng-packagr": "^10.1.0",
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
