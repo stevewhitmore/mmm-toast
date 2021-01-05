@@ -1,66 +1,81 @@
 <div class="container">
-  <br />
   <form>
-    <div class="row">
-      <div class="four columns">
-        <label for="title">Title</label>
-        <input class="u-full-width" type="text" id="title" [(ngModel)]="options.title" name="title">
-
-        <label for="msg">Message</label>
-        <input class="u-full-width" type="text" id="msg" [(ngModel)]="options.msg" name="msg">
-
-        <label for="theme">Theme</label>
-        <select class="u-full-width" [(ngModel)]="options.theme" name="theme">
+    <div class="row input-group mb-3">
+      <div class="col">
+        <label for="title" class="form-label">Title</label>
+        <input type="text"
+               [(ngModel)]="options.title"
+               name="title"
+               class="form-control">
+      </div>
+      <div class="col">
+        <label for="msg" class="form-label">Message</label>
+        <input type="text"
+               [(ngModel)]="options.msg"
+               name="msg"
+               class="form-control">
+      </div>
+      <div class="col">
+        <label for="theme" class="form-label">Theme</label>
+        <select [(ngModel)]="options.theme"
+                name="theme"
+                class="form-control">
           <option *ngFor="let theme of themes" [value]="theme.code">{{theme.name}}</option>
         </select>
-
-        <label for="theme">Type</label>
-        <select class="u-full-width" [(ngModel)]="options.type" name="type">
+      </div>
+    </div>
+    <div class="row input-group mb-3">
+      <div class="col">
+        <label for="theme" class="form-label">Type</label>
+        <select [(ngModel)]="options.type"
+                name="type"
+                class="form-control">
           <option *ngFor="let type of types" [value]="type.code">{{type.name}}</option>
         </select>
-
-        <label for="theme">Position</label>
-        <select class="u-full-width" [ngModel]="position" (ngModelChange)="changePosition($event)" name="position">
+      </div>
+      <div class="col">
+        <label for="theme" class="form-label">Position</label>
+        <select [ngModel]="position"
+                (ngModelChange)="changePosition($event)"
+                name="position"
+                class="form-control">
           <option *ngFor="let pos of positions" [value]="pos.code">{{pos.name}}</option>
         </select>
-
-        <label for="timeout">Timeout</label>
-        <input type="text" class="u-full-width time form-element-with-hint" id="timeout" [(ngModel)]="options.timeout" placeholder="5000" name="timeout" />
+      </div>
+      <div class="col">
+        <label for="timeout" class="form-label">Timeout</label>
+        <input type="text"
+               [(ngModel)]="options.timeout"
+               placeholder="5000"
+               name="timeout"
+               class="form-control">
         <small class="form-hint">0 never expires</small>
       </div>
-      <div class="four columns">
-        <label for="showclose">Show Close Icon</label>
-        <input type="checkbox" id="showclose" [(ngModel)]="options.showClose" name="showClose" />
-        <label for="showduration">Show Remaining Duration</label>
-        <input type="checkbox" id="showduration" [(ngModel)]="options.showDuration" name="showDuration" />
-      </div>
-      <div class="four columns">
-        <pre>
-        <code>
-          ToastService<span ng-if="options.type != 'default'">.{{ options.type }}</span>({{ '{' }}
-            title: "{{ options.title }}",
-            msg: "{{ options.msg }}",
-            showClose: {{ options.showClose }},
-            showDuration: {{ options.showDuration }},
-            timeout: {{ options.timeout || false }},
-            theme: "{{ options.theme }}"
-        {{ '}' }});
-        </code>
-        <code>
-        toastaConfig({{ '{' }}
-            position: "{{ position }}"
-        {{ '}' }});
-        </code>
-        </pre>
+    </div>
+    <div class="row input-group mb-3">
+      <div class="col">
+        <div class="form-check">
+          <input type="checkbox"
+                [(ngModel)]="options.showClose"
+                name="showClose"
+                class="form-check-input">
+          <label for="showclose" class="form-check-label">Show Close Icon</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox"
+                [(ngModel)]="options.showDuration"
+                name="showDuration"
+                class="form-check-input">
+          <label for="showduration" class="form-check-label">Show Remaining Duration</label>
+        </div>
       </div>
     </div>
 
-    <div style="margin-top: 50px">
-      <button style="margin-right: 5px;" class="button-primary" (click)="newToast()">Add Toast</button>
-      <button style="margin-right: 10px;" class="button-primary" (click)="newCountdownToast()">Countdown</button>
-      <button style="margin-right: 5px;" (click)="clearLastToast()">Clear Last</button>
-      <button style="margin-right: 5px;" (click)="clearToasties()">Clear All</button>
+    <div class="demo-buttons">
+      <button type="button" class="btn btn-primary" (click)="newToast()">Add Toast</button>
+      <button type="button" class="btn btn-primary" (click)="newCountdownToast()">Countdown</button>
+      <button type="button" class="btn btn-secondary" (click)="clearLastToast()">Clear Last</button>
+      <button type="button" class="btn btn-secondary" (click)="clearToasties()">Clear All</button>
     </div>
-    <div class="u-cf"></div>
   </form>
 </div>

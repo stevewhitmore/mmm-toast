@@ -1,0 +1,17 @@
+.container {
+  grid-area: content;
+  .form-element-with-hint {
+    margin-bottom: 0;
+  }
+
+  .form-hint {
+    margin-top: .25rem;
+    font-size: 80%;
+    font-weight: 400;
+    color: #6c757d !important
+  }
+
+  .demo-buttons button {
+    margin: 5px;
+  }
+}
