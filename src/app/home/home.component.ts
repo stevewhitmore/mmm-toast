@@ -8,11 +8,12 @@ import { ToastPositionService } from '../toast-position.service';
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html'
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  constructor(private ToastService: ToastService, private toastPositionService: ToastPositionService) {
+  constructor(private toastService: ToastService, private toastPositionService: ToastPositionService) {
   }
 
   themes = [{
@@ -87,12 +88,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     type: this.types[0].code
   };
 
-  position: string = this.positions[5].code;
+  position: string = this.positions[6].code;
   private insertedToasts: number[] = [];
   private subscription: Subscription;
 
   ngOnInit() {
-    this.ToastService.events.subscribe((event: ToastEvent) => {
+    this.listenForToastEvent();
+  }
+
+  listenForToastEvent() {
+    this.toastService.event$.subscribe((event: ToastEvent) => {
       if (event.type === ToastEventType.ADD) {
         const toast: ToastDataModel = event.value;
         this.insertedToasts.push(toast.id);
@@ -118,7 +123,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       showDuration: this.options.showDuration,
       timeout: this.options.timeout,
       theme: this.options.theme,
-      // position: this.options.position,
       onAdd: (toast: ToastDataModel) => {
         console.log('Toast ' + toast.id + ' has been added!');
       },
@@ -128,12 +132,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
 
     switch (this.options.type) {
-      case 'default': this.ToastService.default(toastOptionsModel); break;
-      case 'info': this.ToastService.info(toastOptionsModel); break;
-      case 'success': this.ToastService.success(toastOptionsModel); break;
-      case 'wait': this.ToastService.wait(toastOptionsModel); break;
-      case 'error': this.ToastService.error(toastOptionsModel); break;
-      case 'warning': this.ToastService.warning(toastOptionsModel); break;
+      case 'default': this.toastService.default(toastOptionsModel); break;
+      case 'info': this.toastService.info(toastOptionsModel); break;
+      case 'success': this.toastService.success(toastOptionsModel); break;
+      case 'wait': this.toastService.wait(toastOptionsModel); break;
+      case 'error': this.toastService.error(toastOptionsModel); break;
+      case 'warning': this.toastService.warning(toastOptionsModel); break;
     }
   }
 
@@ -170,21 +174,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     };
 
     switch (this.options.type) {
-      case 'default': this.ToastService.default(toastOptionsModel); break;
-      case 'info': this.ToastService.info(toastOptionsModel); break;
-      case 'success': this.ToastService.success(toastOptionsModel); break;
-      case 'wait': this.ToastService.wait(toastOptionsModel); break;
-      case 'error': this.ToastService.error(toastOptionsModel); break;
-      case 'warning': this.ToastService.warning(toastOptionsModel); break;
+      case 'default': this.toastService.default(toastOptionsModel); break;
+      case 'info': this.toastService.info(toastOptionsModel); break;
+      case 'success': this.toastService.success(toastOptionsModel); break;
+      case 'wait': this.toastService.wait(toastOptionsModel); break;
+      case 'error': this.toastService.error(toastOptionsModel); break;
+      case 'warning': this.toastService.warning(toastOptionsModel); break;
     }
   }
 
   clearToasties() {
-    this.ToastService.clearAll();
+    this.toastService.clearAll();
   }
 
   clearLastToast() {
-    this.ToastService.clear(this.insertedToasts.pop());
+    this.toastService.clear(this.insertedToasts.pop());
   }
 
   changePosition($event) {
