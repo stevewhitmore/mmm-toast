@@ -11,7 +11,7 @@ import {ToastDataModel} from './models/toast-data.model';
 })
 export class ToastModalComponent implements AfterViewInit {
   @Input() toast: ToastDataModel;
-  @Output('closeToast') closeToastEvent = new EventEmitter();
+  @Output() closeToastEvent = new EventEmitter();
   progressInterval: number;
   progressPercent = 0;
   startTime: number = performance.now();

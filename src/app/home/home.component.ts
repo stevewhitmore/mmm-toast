@@ -142,7 +142,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   newCountdownToast() {
-    const interval_ = 1000;
+    const modalInterval = 1000;
     const seconds = this.options.timeout / 1000;
     let subscription: Subscription;
 
@@ -156,7 +156,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       onAdd: (toast: ToastDataModel) => {
         console.log('Toast ' + toast.id + ' has been added!');
         // Run the timer with 1 second iterval
-        const observable = interval(interval_).pipe(take(seconds));
+        const observable = interval(modalInterval).pipe(take(seconds));
         // Start listen seconds bit
         subscription = observable.subscribe((count: number) => {
           // Update title

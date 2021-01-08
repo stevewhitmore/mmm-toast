@@ -2,7 +2,7 @@
 
 An Angular toast component that shows growl-style alerts and messages for your application.
 This is a continuation of the legacy previously championed by [ngx-toasta](https://github.com/emonney/ngx-toasta)
-and before that [ng2-toasta](https://github.com/akserg/ng2-toasta) with the latest package versions and additional enhancements.
+and before that [ng2-toasty](https://github.com/akserg/ng2-toasty) with the latest package versions and additional enhancements.
 
 ## Installation
 

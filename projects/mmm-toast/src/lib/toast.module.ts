@@ -5,7 +5,7 @@ import {ToastModalComponent} from './toast-modal.component';
 import {ToastComponent} from './toast.component';
 
 import {ToastService} from './services/toast.service';
-import {ToastConfigService} from './services/toast-config.service'
+import {ToastConfigService} from './services/toast-config.service';
 
 @NgModule({
   imports: [CommonModule],

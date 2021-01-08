@@ -86,14 +86,17 @@ describe('ToastComponent', () => {
   describe('add()', () => {
     it('should keep it to 5 toasts open at a time (assuming default doesn\'t change) by removing toasts FIFO', () => {
       const toasts = [];
+
       for (let x = 0; x < 4; x++) {
         const t = {
           ...toast,
-          id: 99-x,
-          title: 'foo'
+          id: 99 - x,
+          title: 'foo',
         };
+
         toasts.push(t);
       }
+
       component.toasts = [...toasts];
 
       component.add(toast);
@@ -115,14 +118,17 @@ describe('ToastComponent', () => {
   describe('clear()', () => {
     it('should remove the toast by id', () => {
       const toasts = [];
+
       for (let x = 0; x < 4; x++) {
         const t = {
           ...toast,
-          id: x+1,
+          id: x + 1,
           title: 'foo'
         };
+
         toasts.push(t);
       }
+
       component.toasts = [...toasts];
 
       component.clear(1);
@@ -139,14 +145,17 @@ describe('ToastComponent', () => {
   describe('clearAll()', () => {
     it('should make "toasts" an empty array', () => {
       const toasts = [];
+
       for (let x = 0; x < 4; x++) {
         const t = {
           ...toast,
-          id: x+1,
-          title: 'foo'
+          id: x + 1,
+          title: 'foo',
         };
+
         toasts.push(t);
       }
+
       component.toasts = [...toasts];
 
       component.clearAll();
