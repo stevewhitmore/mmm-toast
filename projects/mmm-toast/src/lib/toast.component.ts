@@ -16,14 +16,14 @@ import {ToastDataModel} from './models/toast-data.model';
   selector: 'mmm-toast',
   template: `
     <div id="toasta" [ngClass]="[position]">
-        <mmm-toast-modal *ngFor="let toast of toasts" [toast]="toast" (closeToast)="closeToast(toast)"></mmm-toast-modal>
+        <mmm-toast-modal *ngFor="let toast of toasts" [toast]="toast" (closeToastEvent)="closeToast(toast)"></mmm-toast-modal>
     </div>`
 })
 export class ToastComponent implements OnInit {
   /**
    * Set of constants defines position of Toasta on the page.
    */
-  static POSITIONS: Array<String> = ['bottom-right', 'bottom-left', 'bottom-center', 'bottom-fullwidth', 'top-right', 'top-left', 'top-center', 'top-fullwidth', 'center-center'];
+  static POSITIONS: string[] = ['bottom-right', 'bottom-left', 'bottom-center', 'bottom-fullwidth', 'top-right', 'top-left', 'top-center', 'top-fullwidth', 'center-center'];
 
   private _position = '';
   // The window position where the toast pops up. Possible values:
@@ -40,8 +40,8 @@ export class ToastComponent implements OnInit {
   set position(value: string) {
     if (value) {
       let notFound = true;
-      for (let i = 0; i < ToastComponent.POSITIONS.length; i++) {
-        if (ToastComponent.POSITIONS[i] === value) {
+      for (const position of ToastComponent.POSITIONS) {
+        if (position === value) {
           notFound = false;
           break;
         }

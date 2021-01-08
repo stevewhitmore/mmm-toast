@@ -10,8 +10,9 @@
         "component-selector": [
             true,
             "element",
-            "lib",
+            "mmm",
             "kebab-case"
-        ]
+        ],
+        "ban-types": []
     }
 }

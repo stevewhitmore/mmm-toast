@@ -20,16 +20,14 @@ describe('ToastModalComponent', () => {
     component.toast = toastMockData;
 
     event = {
-      preventDefault: function() {}
-    }
+      preventDefault: () => {}
+    };
 
     fixture.detectChanges();
   });
 
 
-  /**
-   * handleProgress() should be handled with e2e tests
-   * */
+  // handleProgress() should be handled with e2e tests
 
   describe('close()', () => {
     it('should call closeToastEvent.next', () => {

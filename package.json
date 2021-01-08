@@ -18,7 +18,7 @@
     "start": "ng serve",
     "build-prod": "ng build mmm-toast --prod && node ./scripts/copy-styles.js",
     "gh-pages": "ng build --prod --output-path docs --base-href /mmm-toast/",
-    "test": "ng test mmm-toast --browsers=ChromiumHeadless",
+    "test-ci": "ng test mmm-toast --browsers=ChromeHeadlessCI --watch=false progress=false",
     "test-local": "ng test mmm-toast --browsers=Chromium --watch=true",
     "lint": "ng lint",
     "e2e": "ng e2e"
