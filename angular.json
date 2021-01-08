@@ -152,9 +152,9 @@
           },
           "configurations": {
             "production": {
+              "tsConfig": "projects/mmm-toast/tsconfig.lib.prod.json",
               "project": "projects/mmm-toast/ng-package.prod.json"
-            ,              "tsConfig": "projects/mmm-toast/tsconfig.lib.prod.json"
-}
+              }
           }
         },
         "test": {
