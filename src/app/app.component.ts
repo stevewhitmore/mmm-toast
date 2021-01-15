@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MmmToastService} from 'mmm-toast'
+import { MmmToastService } from 'projects/mmm-toast/src/public-api'
 
 @Component({
   selector: 'app-root',
@@ -33,6 +33,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     const globalConfigs = {
+      showClose: false,
+      timeout: 300,
     };
     this.mmmToastService.receiveGlobalConfigs(globalConfigs);
   }

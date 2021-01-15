@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 
-export interface ToastModel {
-  type: string;
-  message: string;
+export interface GlobalConfigModel {
   id?: number;
   title?: string;
   showClose?: boolean;
@@ -13,6 +11,11 @@ export interface ToastModel {
   position?: string;
   limit?: number;
   isCountdown?: boolean;
+}
+
+export interface ToastModel extends GlobalConfigModel {
+  type: string;
+  message: string;
 }
 
 @Injectable({
@@ -29,7 +32,7 @@ export class MmmToastService {
   counter = 1;
   toasts: ToastModel[] = [];
 
-  receiveGlobalConfigs(configs: any) {
+  receiveGlobalConfigs(configs: GlobalConfigModel) {
     this.globalConfigs = {...configs}
   }
 
@@ -71,8 +74,8 @@ export class MmmToastService {
   private setGlobalValues(toast: ToastModel) {
     if (this.globalConfigs) {
       toast = {
-        ...toast,
         ...this.globalConfigs,
+        ...toast,
       };
 
       if (toast.theme) {
@@ -80,7 +83,6 @@ export class MmmToastService {
       }
 
       this.setPosition(toast);
-
     }
 
     return toast;
@@ -114,7 +116,7 @@ export class MmmToastService {
       id: this.counter++,
     };
 
-    if (this.toasts.length >= 5) {
+    if (this.toasts.length >= toast.limit) {
       this.toasts.shift();
     }
     this.toasts.push(latestToast);

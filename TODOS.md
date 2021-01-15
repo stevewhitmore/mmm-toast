@@ -1,7 +1,8 @@
 # TODOS before v1 release
 
-- add countdown functionality to toast
-- demo publish
-- linter setup (eslint)
-- unit tests
-- pipeline setup
+- Finish updating README
+- Fix global/instance config conflicts
+- Demo publish
+- Linter setup (eslint)
+- Unit tests
+- Pipeline setup

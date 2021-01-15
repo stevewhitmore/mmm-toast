@@ -46,6 +46,7 @@
                 [formControlName]="'position'">
           <option *ngFor="let pos of positions" [value]="pos.code">{{pos.name}}</option>
         </select>
+        <small class="form-hint">Defaults to bottom right</small>
       </div>
       <div class="col">
         <label for="timeout" class="form-label">Timeout</label>
