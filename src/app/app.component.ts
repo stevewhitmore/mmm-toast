@@ -1,0 +1,39 @@
+import { Component, OnInit } from '@angular/core';
+import { MmmToastService} from 'mmm-toast'
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <section>
+
+    <header>
+      <div>
+        <h1>mmm-toast Demo</h1>
+        <p>Easy toast notification for Angular</p>
+      </div>
+    </header>
+
+    <app-home></app-home>
+
+    <footer>
+      Released under the <a href="https://github.com/stevewhitmore/mmm-toast/blob/master/LICENSE">MIT</a> license. <a
+        href="https://github.com/stevewhitmore/mmm-toast">View source</a>.
+    </footer>
+
+    <mmm-toast></mmm-toast>
+
+    </section>
+  `,
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent implements OnInit {
+
+  constructor(private mmmToastService: MmmToastService) {
+  }
+
+  ngOnInit() {
+    const globalConfigs = {
+    };
+    this.mmmToastService.receiveGlobalConfigs(globalConfigs);
+  }
+}

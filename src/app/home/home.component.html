@@ -1,0 +1,90 @@
+<div class="container">
+  <form [formGroup]="demoForm">
+
+    <div class="row input-group mb-3">
+      <div class="col">
+        <label for="title" class="form-label">Title</label>
+        <input type="text"
+               id="title"
+               name="title"
+               class="form-control"
+               [formControlName]="'title'">
+      </div>
+      <div class="col">
+        <label for="message" class="form-label">Message</label>
+        <input type="text"
+               id="message"
+               name="message"
+               class="form-control"
+               [formControlName]="'message'">
+      </div>
+      <div class="col">
+        <label for="theme" class="form-label">Theme</label>
+        <select name="theme"
+                id="theme"
+                class="form-control"
+                [formControlName]="'theme'">
+          <option *ngFor="let theme of themes" [value]="theme.code">{{theme.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row input-group mb-3">
+      <div class="col">
+        <label for="theme" class="form-label">Type</label>
+        <select name="type"
+                id="type"
+                class="form-control"
+                [formControlName]="'type'">
+          <option *ngFor="let type of types" [value]="type.code">{{type.name}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="theme" class="form-label">Position</label>
+        <select name="position"
+                id="position"
+                class="form-control"
+                [formControlName]="'position'">
+          <option *ngFor="let pos of positions" [value]="pos.code">{{pos.name}}</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="timeout" class="form-label">Timeout</label>
+        <input type="text"
+               placeholder="5000"
+               name="timeout"
+               id="timeout"
+               class="form-control"
+               [formControlName]="'timeout'">
+        <small class="form-hint">0 never expires</small>
+      </div>
+    </div>
+    <div class="row input-group mb-3">
+      <div class="col">
+        <div class="form-check">
+          <input type="checkbox"
+                  name="showclose"
+                  id="showclose"
+                  class="form-check-input"
+                  [formControlName]="'showClose'">
+          <label for="showclose" class="form-check-label">Show Close Icon</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox"
+                  name="showduration"
+                  id="showduration"
+                  class="form-check-input"
+                  [formControlName]="'showDuration'">
+          <label for="showduration" class="form-check-label">Show Remaining Duration</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-buttons">
+      <button type="button" class="btn btn-primary" (click)="newToast()">Add Toast</button>
+      <button type="button" class="btn btn-primary" (click)="newCountdownToast()">Countdown</button>
+      <button type="button" class="btn btn-secondary" (click)="clearLastToast()">Clear Last</button>
+      <button type="button" class="btn btn-secondary" (click)="clearAllToast()">Clear All</button>
+    </div>
+
+  </form>
+</div>
