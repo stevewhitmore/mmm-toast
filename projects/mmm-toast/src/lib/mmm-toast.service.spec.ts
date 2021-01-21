@@ -1,5 +1,4 @@
-import { componentFactoryName } from '@angular/compiler';
-import { fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { MmmToastService } from './mmm-toast.service';
 
@@ -10,10 +9,6 @@ describe('MmmToastService', () => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(MmmToastService);
   });
-
-  afterEach(fakeAsync(() => {
-    flush();
-  }));
 
   describe('receiveGlobalConfigs()', () => {
     it('should set the "globalConfigs" object to whatever GlobalConfigModel object is passed to it', () => {
