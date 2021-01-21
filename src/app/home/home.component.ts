@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit {
       message: 'Mmmm, tasties...',
       theme: 'default',
       type: 'success',
-      position: 'bottom-left',
+      position: 'bottom-right',
       timeout: 5000,
       showClose: true,
       showDuration: true,

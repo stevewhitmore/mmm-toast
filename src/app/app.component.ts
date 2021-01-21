@@ -33,8 +33,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     const globalConfigs = {
-      showClose: false,
-      timeout: 300,
     };
     this.mmmToastService.receiveGlobalConfigs(globalConfigs);
   }
