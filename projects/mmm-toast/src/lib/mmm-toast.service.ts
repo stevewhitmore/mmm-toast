@@ -24,13 +24,12 @@ export interface ToastModel extends GlobalConfigModel {
 export class MmmToastService {
   private positionSubject = new BehaviorSubject<string>('toasta-position-bottom-right');
   private toastPopSubject = new Subject<ToastModel[]>();
+  private globalConfigs: any;
+  private counter = 1;
+
+  toasts: ToastModel[] = [];
   position$: Observable<string> = this.positionSubject.asObservable();
   toastPop$: Observable<ToastModel[]> = this.toastPopSubject.asObservable();
-
-  globalConfigs: any;
-
-  counter = 1;
-  toasts: ToastModel[] = [];
 
   receiveGlobalConfigs(configs: GlobalConfigModel) {
     this.globalConfigs = {...configs}
@@ -68,8 +67,26 @@ export class MmmToastService {
       isCountdown: toast.isCountdown || globalToast.isCountdown,
     };
 
+    if (toast.showClose === false) {
+      finalToast.showClose = false;
+    }
+
+    if (toast.showDuration === false) {
+      finalToast.showDuration = false;
+    }
+
     this.setPosition(finalToast);
     this.serveToast(finalToast);
+  }
+
+  // Airbnb says to avoid 'set' and 'get' syntax. I happen to agree with them.
+  // See https://github.com/airbnb/javascript#accessors and https://github.com/airbnb/javascript/issues/1880
+  getGlobalConfigs() {
+    return this.globalConfigs;
+  }
+
+  getToasts() {
+    return this.toasts;
   }
 
   private getDefaultToast() {
@@ -95,14 +112,22 @@ export class MmmToastService {
           [key]: value,
         };
       }
-    }
 
-    if (this.globalConfigs.theme) {
-      toast.theme = `toasta-theme-${this.globalConfigs.theme}`;
-    }
+      if (this.globalConfigs.theme) {
+        toast.theme = `toasta-theme-${this.globalConfigs.theme}`;
+      }
 
-    if (this.globalConfigs.position) {
-      toast.position = `toasta-position-${this.globalConfigs.position}`;
+      if (this.globalConfigs.position) {
+        toast.position = `toasta-position-${this.globalConfigs.position}`;
+      }
+
+      if (this.globalConfigs.showClose === false) {
+        toast.showClose = false;
+      }
+
+      if (this.globalConfigs.showDuration === false) {
+        toast.showDuration = false;
+      }
     }
     
     return toast;
