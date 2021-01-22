@@ -22,6 +22,10 @@ Online demo available [here](https://stevewhitmore.github.io/mmm-toast)
 - [Models](#models)
 - [Methods](#methods)
 - [Examples](#examples)
+  - [Bare Minimum](#bare%20minimum)
+  - [Global Properties](#global%20properties)
+  - [Countdown Toast](#countdown%20toast)
+- [License](#license)
 
 ### Setup
 
@@ -56,7 +60,7 @@ import {AppComponent} from './app.component';
 @NgModule({
     imports: [
         BrowserModule,
-        MmmToastModule.forRoot()
+        MmmToastModule.forRoot() // !!! <-- maybe not this
     ],
     bootstrap: [AppComponent]
 })
@@ -81,26 +85,42 @@ export class SharedModule {
 
 #### 3. Use the `MmmToastService` for your application
 
+```js
+import {Component} from '@angular/core';
+import {MmmToastService} from 'mmm-toast';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: 'app.component.html',
+})
+export class AppComponent {
+
+  constructor(private mmmToastService: MmmToastService) {}
+  
+  ...
+}
+```
+
 ### Models
 
 ```js
 export interface GlobalConfigModel {
-  id?: number;
-  title?: string;
-  showClose?: boolean;
-  showDuration?: boolean;
-  theme?: string;
-  timeout?: number;
-  position?: string;
-  limit?: number;
-  isCountdown?: boolean;
+  id?: number; // auto generated
+  title?: string; // slightly bolder text above message
+  showClose?: boolean; // shows closing 'x' on the top right of toast popup
+  showDuration?: boolean; // shows shrinking bar at the bottom of the toast popup
+  theme?: string; // 'bootstrap', 'default', or 'material'
+  timeout?: number; // counted in miliseconds
+  position?: string; // 'bottom-right', 'bottom-left', 'bottom-center', 'bottom-fullwidth', 'top-right', 'top-left', 'top-center', 'top-fullwidth', 'center-center'
+  limit?: number; // how many toast popups you want to appear at a time
+  isCountdown?: boolean; // change the toast popup to a countdown
 }
 ```
 
 ```js
 export interface ToastModel extends GlobalConfigModel {
-  type: string;
-  message: string;
+  type: string; // 'error', 'info', 'success', 'wait', 'warning'
+  message: string; // whatever text you want to appear in the toast popup
 }
 ```
 
@@ -130,255 +150,130 @@ Clears the last toast message to appear (LIFO so it goes from the bottom up).
 
 At minimum the `type` and `message` properties are required. Takes the ToastModel object
 passed in, overwrites whatever was set as a global property. It then checks for any properties
-not set and sets them to default values. After that it makes sure the limit is not surpassed and 
-then the toast is added to the DOM.
+not set and sets them to default values. After that it makes sure the limit is not surpassed and then the toast is added to the DOM.
 
 ### Examples
+
+#### Bare Minimum
 
 - Import `MmmToastService` from `mmm-toast` in your application code:
 
 ```js
 import {Component} from '@angular/core';
-import {MmmToastService, ToastaConfig, ToastOptions, ToastData} from 'mmm-toast';
+import {MmmToastService} from 'mmm-toast';
 
 @Component({
-    selector: 'app-root',
-    template: `
-        <div>Hello world</div>
-        <button (click)="addToast()">Add Toast</button>
-        <mmm-toast></mmm-toast>
-    `
+  selector: 'app-root',
+  template: `
+    <div>Hello world</div>
+    <button (click)="addToast()">Add Toast</button>
+    <mmm-toast></mmm-toast>
+  `
 })
 export class AppComponent {
 
-    constructor(private MmmToastService: MmmToastService, private ToastaConfig: ToastaConfig) {
-        // Assign the selected theme name to the `theme` property of the instance of ToastaConfig.
-        // Possible values: default, bootstrap, material
-        this.ToastaConfig.theme = 'material';
-    }
+  constructor(private mmmToastService: MmmToastService) {}
 
-    addToast() {
-        // Just add default Toast with title only
-        this.MmmToastService.default('Hi there');
-        // Or create the instance of ToastOptions
-        var toastOptions: ToastOptions = {
-            title: "My title",
-            msg: "The message",
-            showClose: true,
-            timeout: 5000,
-            theme: 'default',
-            onAdd: (toast: ToastData) => {
-                console.log('Toast ' + toast.id + ' has been added!');
-            },
-            onRemove: function(toast: ToastData) {
-                console.log('Toast ' + toast.id + ' has been removed!');
-            }
-        };
-        // Add see all possible types in one shot
-        this.MmmToastService.info(toastOptions);
-        this.MmmToastService.success(toastOptions);
-        this.MmmToastService.wait(toastOptions);
-        this.MmmToastService.error(toastOptions);
-        this.MmmToastService.warning(toastOptions);
-    }
+  addToast() {
+    this.mmmToastService.addToast({type: 'success', message: 'We did it!'})
+  }
 }
 ```
 
-### 4. How to dynamically update title and message of a toast
+That's all you really need at a minimum. You can pass in any object that is of type
+`ToastModel`. The only required properties are `type` and `message`. The default
+toast properties are as follows:
 
-Here is an example of how to dynamically update message and title of individual toast:
+```js
+{
+  title: '';
+  showClose: true;
+  showDuration: true;
+  theme: 'default';
+  timeout: 5000;
+  position: 'bottom-right;
+  limit: 5;
+  isCountdown: false
+}
+```
+
+Assuming you clicked the button once it would look like this:
+
+![defautl single toast](./static/default-single-toast.png)
+
+#### Global Properties
+
+- Import `MmmToastService` from `mmm-toast` in your application code:
+
+```js
+import {Component, OnInit} from '@angular/core';
+import {MmmToastService} from 'mmm-toast';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <div>Hello world</div>
+    <button (click)="addToast()">Add Toast</button>
+    <mmm-toast></mmm-toast>
+  `
+})
+export class AppComponent implements OnInit {
+
+  constructor(private mmmToastService: MmmToastService) {}
+
+  ngOnInit() {
+    this.mmmToastService.receiveGlobalConfigs({
+      theme: 'material',
+      timeout: 10000,
+      position: 'top-left',
+      limit: 3,
+    });
+  }
+
+  addToast() {
+    this.mmmToastService.addToast({type: 'success', message: 'We did it!'})
+  }
+}
+```
+
+Assuming you clicked the button 3 or more times it would look like this:
+
+![global multi toasts](./static/global-multi-toasts.png)
+
+#### Countdown Toast
+
+- Import `MmmToastService` from `mmm-toast` in your application code:
 
 ```js
 import {Component} from '@angular/core';
-import {MmmToastService, ToastaConfig, ToastComponent, ToastOptions, ToastData} from 'mmm-toast';
-import {Subject, Observable, Subscription} from 'rxjs/Rx';
+import {MmmToastService} from 'mmm-toast';
 
 @Component({
-    selector: 'app',
-    template: `
-        <div>Hello world</div>
-        <button (click)="addToast()">Add Toast</button>
-        <mmm-toast></mmm-toast>
-    `
+  selector: 'app-root',
+  template: `
+      <div>Hello world</div>
+      <button (click)="addToast()">Add Toast</button>
+      <mmm-toast></mmm-toast>
+  `
 })
 export class AppComponent {
 
-    getTitle(num: number): string {
-        return 'Countdown: ' + num;
-    }
+  constructor(private mmmToastService: MmmToastService) {}
 
-    getMessage(num: number): string {
-        return 'Seconds left: ' + num;
-    }
-
-    constructor(private MmmToastService: MmmToastService) { }
-
-    addToast() {
-        let interval = 1000;
-        let timeout = 5000;
-        let seconds = timeout / 1000;
-        let subscription: Subscription;
-
-        let toastOptions: ToastOptions = {
-            title: this.getTitle(seconds),
-            msg: this.getMessage(seconds),
-            showClose: true,
-            timeout: timeout,
-            onAdd: (toast: ToastData) => {
-                console.log('Toast ' + toast.id + ' has been added!');
-                // Run the timer with 1 second iterval
-                let observable = Observable.interval(interval).take(seconds);
-                // Start listen seconds beat
-                subscription = observable.subscribe((count: number) => {
-                    // Update title of toast
-                    toast.title = this.getTitle(seconds - count - 1);
-                    // Update message of toast
-                    toast.msg = this.getMessage(seconds - count - 1);
-                });
-
-            },
-            onRemove: function(toast: ToastData) {
-                console.log('Toast ' + toast.id + ' has been removed!');
-                // Stop listenning
-                subscription.unsubscribe();
-            }
-        };
-
-        switch (this.options.type) {
-            case 'default': this.MmmToastService.default(toastOptions); break;
-            case 'info': this.MmmToastService.info(toastOptions); break;
-            case 'success': this.MmmToastService.success(toastOptions); break;
-            case 'wait': this.MmmToastService.wait(toastOptions); break;
-            case 'error': this.MmmToastService.error(toastOptions); break;
-            case 'warning': this.MmmToastService.warning(toastOptions); break;
-        }
-    }
+  addToast() {
+    this.mmmToastService.addToast({
+      type: '',
+      message: '',
+      isCountdown: true,
+    })
+  }
 }
 ```
 
-### 5. How to close specific toast
+The countdown toast defaults to an "info" toast type:
 
-Here is an example of how to close an individual toast:
-
-```js
-import {Component} from '@angular/core';
-import {MmmToastService, ToastaConfig, ToastComponent, ToastOptions, ToastData} from 'mmm-toast';
-import {Subject, Observable, Subscription} from 'rxjs/Rx';
-
-@Component({
-    selector: 'app',
-    template: `
-        <div>Hello world</div>
-        <button (click)="addToast()">Add Toast</button>
-        <mmm-toast></mmm-toast>
-    `
-})
-export class AppComponent {
-
-    getTitle(num: number): string {
-        return 'Countdown: ' + num;
-    }
-
-    getMessage(num: number): string {
-        return 'Seconds left: ' + num;
-    }
-
-    constructor(private MmmToastService:MmmToastService) { }
-
-    addToast() {
-        let interval = 1000;
-        let subscription: Subscription;
-
-        let toastOptions: ToastOptions = {
-            title: this.getTitle(0),
-            msg: this.getMessage(0),
-            showClose: true,
-            onAdd: (toast: ToastData) => {
-                console.log('Toast ' + toast.id + ' has been added!');
-                // Run the timer with 1 second iterval
-                let observable = Observable.interval(interval);
-                // Start listen seconds beat
-                subscription = observable.subscribe((count: number) => {
-                    // Update title of toast
-                    toast.title = this.getTitle(count);
-                    // Update message of toast
-                    toast.msg = this.getMessage(count);
-                    // Extra condition to hide Toast after 10 sec
-                    if (count > 10) {
-                        // We use toast id to identify and hide it
-                        this.MmmToastService.clear(toast.id);
-                    }
-                });
-
-            },
-            onRemove: function(toast: ToastData) {
-                console.log('Toast ' + toast.id + ' has been removed!');
-                // Stop listenning
-                subscription.unsubscribe();
-            }
-        };
-
-        switch (this.options.type) {
-            case 'default': this.MmmToastService.default(toastOptions); break;
-            case 'info': this.MmmToastService.info(toastOptions); break;
-            case 'success': this.MmmToastService.success(toastOptions); break;
-            case 'wait': this.MmmToastService.wait(toastOptions); break;
-            case 'error': this.MmmToastService.error(toastOptions); break;
-            case 'warning': this.MmmToastService.warning(toastOptions); break;
-        }
-    }
-}
-```
-
-### 6. Customize the `mmm-toast` for your application in template
-
-You can use the following properties to customize the mmm-toast component in your template:
-
-- `position` - The window position where the toast pops up. Default value is `bottom-right`. Possible values: `bottom-right`, `bottom-left`, `bottom-fullwidth` `top-right`, `top-left`, `top-fullwidth`,`top-center`, `bottom-center`, `center-center`
-Example:
-
-```html
-<mmm-toast [position]="'top-center'"></mmm-toast>
-```
-
-### 7. Options
-
-Use these options to configure individual or global toasts
-
-Options specific to an individual toast:
-
-```js
-ToastOptions
-{
-    "title": string,      //A string or html for the title
-    "msg": string,        //A string or html for the message
-    "showClose": true,    //Whether to show a close button
-    "showDuration": true, //Whether to show a progress bar
-    "theme": "default",   //The theme to apply to this toast
-    "timeout": 5000,      //Time to live until toast is removed. 0 is unlimited
-    "onAdd": Function,    //Function that gets called after this toast is added
-    "onRemove": Function  //Function that gets called after this toast is removed
-}
-```
-
-Configurations that affects all toasts:
-
-```js
-ToastaConfig
-{
-    "limit": 5,                 //Maximum toasts that can be shown at once. Older toasts will be removed. 0 is unlimited
-    "showClose": true,          //Whether to show the 'x' icon to close the toast
-    "showDuration": true,       //Whether to show a progress bar at the bottom of the notification
-    "position": "bottom-right", //The window position where the toast pops up
-    "timeout": 5000,            //Time to live in milliseconds. 0 is unlimited
-    "theme": "default"          //What theme to use
-}
-```
-
-## Credits
-
-Original work by [ng2-toasta](https://github.com/akserg/ng2-toasta)
+![countdown toast](./static/countdown-toast.png)
 
 ## License
 
- [MIT](https://github.com/stevewhitmore/mmm-toast/blob/master/LICENSE)
+[MIT](https://github.com/stevewhitmore/mmm-toast/blob/master/LICENSE)
