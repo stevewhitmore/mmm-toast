@@ -57,7 +57,7 @@ import {AppComponent} from './app.component';
 @NgModule({
     imports: [
         BrowserModule,
-        MmmToastModule.forRoot() // !!! <-- maybe not this
+        MmmToastModule,
     ],
     bootstrap: [AppComponent]
 })
@@ -72,7 +72,7 @@ don't forget that you can use it to export the `MmmToastModule` that you importe
 @NgModule({
     imports: [
         BrowserModule,
-        MmmToastModule.forRoot()
+        MmmToastModule,
     ],
     exports: [BrowserModule, MmmToastModule],
 })
