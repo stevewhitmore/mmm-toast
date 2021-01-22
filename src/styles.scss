@@ -2,3 +2,9 @@
 @import "../dist/mmm-toast/lib/styles/style-default.css";
 @import "../dist/mmm-toast/lib/styles/style-bootstrap.css";
 @import "../dist/mmm-toast/lib/styles/style-material.css";
+
+html, body {height: 98%;}
+body {
+  padding: 0;
+  margin: 0;
+}
