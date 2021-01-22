@@ -1,8 +1,8 @@
 # TODOS before v1 release
 
-- Unit tests
 - Finish updating README
 - Demo publish
-- Linter setup (eslint)
-- Pipeline setup
+- ~~Unit tests~~
+- ~~Pipeline setup~~
+- ~~Linter setup (eslint)~~
 - ~~Fix global/instance config conflicts~~
