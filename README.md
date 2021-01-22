@@ -22,9 +22,6 @@ Online demo available [here](https://stevewhitmore.github.io/mmm-toast)
 - [Models](#models)
 - [Methods](#methods)
 - [Examples](#examples)
-  - [Bare Minimum](#bare%20minimum)
-  - [Global Properties](#global%20properties)
-  - [Countdown Toast](#countdown%20toast)
 - [License](#license)
 
 ### Setup
