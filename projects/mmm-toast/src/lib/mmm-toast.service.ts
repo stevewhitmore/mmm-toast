@@ -32,7 +32,7 @@ export class MmmToastService {
   toastPop$: Observable<ToastModel[]> = this.toastPopSubject.asObservable();
 
   receiveGlobalConfigs(configs: GlobalConfigModel) {
-    this.globalConfigs = {...configs}
+    this.globalConfigs = {...configs};
   }
 
   removeToast(toastId: number) {
@@ -129,7 +129,6 @@ export class MmmToastService {
         toast.showDuration = false;
       }
     }
-    
     return toast;
   }
 

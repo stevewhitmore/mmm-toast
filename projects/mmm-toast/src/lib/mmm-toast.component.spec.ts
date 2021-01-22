@@ -26,8 +26,8 @@ describe('MmmToastComponent', () => {
     fixture.detectChanges();
   });
 
-  // There's no point in testing listenForToastEvent() because all it does is capture the value of 
-  // Observables that are created elsewhere. 
+  // There's no point in testing listenForToastEvent() because all it does is capture the value of
+  // Observables that are created elsewhere.
 
   describe('clearToast()', () => {
     it('should pass an Observable of a list of ToastModel objects', () => {

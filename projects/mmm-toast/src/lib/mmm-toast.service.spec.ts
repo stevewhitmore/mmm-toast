@@ -32,7 +32,7 @@ describe('MmmToastService', () => {
       ];
 
       service.removeToast(1);
-      
+
       expect(service.toasts.length).toBe(1);
     });
   }); // removeToast()
@@ -45,7 +45,7 @@ describe('MmmToastService', () => {
       ];
 
       service.clearAll();
-      
+
       expect(service.toasts.length).toBe(0);
     });
   }); // clearAll()
@@ -58,7 +58,7 @@ describe('MmmToastService', () => {
       ];
 
       service.clearLast();
-      
+
       expect(service.toasts.length).toBe(1);
       expect(service.toasts[0].id).toBe(1);
     });
@@ -82,7 +82,7 @@ describe('MmmToastService', () => {
       };
 
       service.addToast(toast);
-      
+
       expect(service.toasts[0]).toEqual(expected);
     });
 
@@ -105,13 +105,13 @@ describe('MmmToastService', () => {
 
       service.receiveGlobalConfigs(globalConfigs);
       service.addToast(toast);
-      
+
       expect(service.toasts[0]).toEqual(expected);
     });
 
     it('should overwrite whatever default or global toast props are passed to it', () => {
       const toast = {
-        type: 'success', 
+        type: 'success',
         message: 'foo',
         title: 'Banana!',
         showClose: false,
@@ -133,10 +133,9 @@ describe('MmmToastService', () => {
       };
 
       service.addToast(toast);
-      
+
       expect(service.toasts[0]).toEqual(expected);
     });
   }); // addToast()
 
-  
 });

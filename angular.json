@@ -153,14 +153,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/mmm-toast/tsconfig.lib.json",
-              "projects/mmm-toast/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/mmm-toast/**/*.ts",
+              "projects/mmm-toast/**/*.html"
             ]
           }
         }

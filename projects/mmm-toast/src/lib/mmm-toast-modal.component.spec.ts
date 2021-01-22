@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MmmToastModalComponent } from './mmm-toast-modal.component';
 
@@ -11,11 +11,11 @@ describe('MmmToastComponentModal', () => {
     TestBed.configureTestingModule({
       declarations: [ MmmToastModalComponent ]
     });
-  
+
     fixture = TestBed.createComponent(MmmToastModalComponent);
     component = fixture.componentInstance;
     component.toast = {
-      type: 'success', 
+      type: 'success',
       message: 'foo',
       theme: 'toasta-theme-default',
     };
@@ -24,5 +24,5 @@ describe('MmmToastComponentModal', () => {
 
   it('should something', () => {
     expect(true).toBe(true);
-  })
+  });
 });
