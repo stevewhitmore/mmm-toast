@@ -1,20 +1,34 @@
 import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
 
+type Prefixable = keyof Pick<ToastModel, 'theme' | 'position' | 'type'>;
+export type ToastAPrefix<Key extends Prefixable> = `toasta-${Key}`;
+
+export type Theme = 'bootstrap' | 'default' | 'material';
+export type GlobalTheme = `${ToastAPrefix<'theme'>}-${Theme}` | Theme;
+
+export type PositionY = 'bottom' | 'top';
+export type PositionX = 'right' | 'left' | 'center' | 'fullwidth';
+export type Position = `${PositionY}-${PositionX}` | 'center-center';
+export type GlobalPosition = `${ToastAPrefix<'position'>}-${Position}` | Position;
+
+export type Type = 'error' | 'info' | 'success' | 'wait' | 'warning';
+export type GlobalType = `${ToastAPrefix<'type'>}-${Type}` | Type;
+
 export interface GlobalConfigModel {
   id?: number;
   title?: string;
   showClose?: boolean;
   showDuration?: boolean;
-  theme?: string;
+  theme?: GlobalTheme;
   timeout?: number;
-  position?: string;
+  position?: GlobalPosition;
   limit?: number;
   isCountdown?: boolean;
 }
 
 export interface ToastModel extends GlobalConfigModel {
-  type: string;
+  type: GlobalType;
   message: string;
 }
 
@@ -24,7 +38,7 @@ export interface ToastModel extends GlobalConfigModel {
 export class MmmToastService {
   private positionSubject = new BehaviorSubject<string>('toasta-position-bottom-right');
   private toastPopSubject = new Subject<ToastModel[]>();
-  private globalConfigs: any;
+  private globalConfigs: GlobalConfigModel;
   private counter = 1;
 
   toasts: ToastModel[] = [];
@@ -55,14 +69,14 @@ export class MmmToastService {
     const globalToast = this.setGlobalValues(defaultToast);
 
     const finalToast: ToastModel = {
-      type: `toasta-type-${toast.type}`,
+      type: `toasta-type-${toast.type}` as GlobalType,
       message: toast.message,
       title: toast.title || globalToast.title,
       showClose: toast.showClose || globalToast.showClose,
       showDuration: toast.showDuration || globalToast.showDuration,
-      theme: toast.theme ? `toasta-theme-${toast.theme}` : globalToast.theme,
+      theme: toast.theme ? (`toasta-theme-${toast.theme}` as GlobalTheme) : globalToast.theme,
       timeout: toast.timeout || globalToast.timeout,
-      position: toast.position ? `toasta-position-${toast.position}` : globalToast.position,
+      position: toast.position ? (`toasta-position-${toast.position}` as GlobalPosition) : globalToast.position,
       limit: toast.limit || globalToast.limit,
       isCountdown: toast.isCountdown || globalToast.isCountdown,
     };
@@ -114,11 +128,11 @@ export class MmmToastService {
       }
 
       if (this.globalConfigs.theme) {
-        toast.theme = `toasta-theme-${this.globalConfigs.theme}`;
+        toast.theme = `toasta-theme-${this.globalConfigs.theme}` as GlobalTheme;
       }
 
       if (this.globalConfigs.position) {
-        toast.position = `toasta-position-${this.globalConfigs.position}`;
+        toast.position = `toasta-position-${this.globalConfigs.position}` as GlobalPosition;
       }
 
       if (this.globalConfigs.showClose === false) {
