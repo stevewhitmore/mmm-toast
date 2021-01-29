@@ -34,7 +34,7 @@ Online demo available [here](https://stevewhitmore.github.io/mmm-toast)
   - `style-material.css` - Contains Material Design theme
 
   ```css
-  // styles.css/styles.scss - you really only need to import the one you'll use
+  /* styles.css/styles.scss - you really only need to import the one you'll use */
   @import "~mmm-toast/lib/styles/style-default.css";
   @import "~mmm-toast/lib/styles/style-bootstrap.css";
   @import "~mmm-toast/lib/styles/style-material.css";
