@@ -5,7 +5,7 @@ import { MmmToastService, ToastModel } from './mmm-toast.service';
 @Component({
   selector: 'mmm-toast',
   template: `
-    <div id="toasta" *ngIf="(toasts$ | async) as toasts" [ngClass]="[position$ | async]">
+    <div class="toast-wrapper" *ngIf="(toasts$ | async) as toasts" [ngClass]="[position$ | async]">
       <mmm-toast-modal *ngFor="let toast of toasts" [toast]="toast" (closeToastEvent)="clearToast($event)"></mmm-toast-modal>
     </div>
   `,
