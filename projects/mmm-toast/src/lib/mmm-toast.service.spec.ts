@@ -16,7 +16,7 @@ describe('MmmToastService', () => {
         limit: 3,
         theme: 'bootstrap',
         isCountdown: true,
-      };
+      } as const;
 
       service.receiveGlobalConfigs(expected);
 
@@ -66,7 +66,7 @@ describe('MmmToastService', () => {
 
   describe('addToast()', () => {
     it('should add a toast with default toast props if nothing except minimum props are passed to it', () => {
-      const toast = {type: 'success', message: 'foo'};
+      const toast = {type: 'success', message: 'foo'} as const;
       const expected = {
         id: 1,
         type: `toasta-type-${toast.type}`,
@@ -79,7 +79,7 @@ describe('MmmToastService', () => {
         position: 'toasta-position-bottom-right',
         limit: 5,
         isCountdown: false,
-      };
+      } as const;
 
       service.addToast(toast);
 
@@ -88,7 +88,7 @@ describe('MmmToastService', () => {
 
     it('should add a toast with global toast props if any are received', () => {
       const globalConfigs = {limit: 3, timeout: 9999};
-      const toast = {type: 'success', message: 'foo'};
+      const toast = {type: 'success', message: 'foo'} as const;
       const expected = {
         id: 1,
         type: `toasta-type-${toast.type}`,
@@ -101,7 +101,7 @@ describe('MmmToastService', () => {
         position: 'toasta-position-bottom-right',
         limit: globalConfigs.limit,
         isCountdown: false,
-      };
+      } as const;
 
       service.receiveGlobalConfigs(globalConfigs);
       service.addToast(toast);
@@ -117,7 +117,7 @@ describe('MmmToastService', () => {
         showClose: false,
         theme: 'material',
         position: 'top-left',
-      };
+      } as const;
       const expected = {
         id: 1,
         type: `toasta-type-${toast.type}`,
@@ -130,7 +130,7 @@ describe('MmmToastService', () => {
         position: `toasta-position-${toast.position}`,
         limit: 5,
         isCountdown: false,
-      };
+      } as const;
 
       service.addToast(toast);
 
