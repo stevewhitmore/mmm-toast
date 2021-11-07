@@ -16,8 +16,8 @@ import { MmmToastService } from 'projects/mmm-toast/src/public-api'
     <app-home></app-home>
 
     <footer>
-      Released under the <a href="https://github.com/stevewhitmore/mmm-toast/blob/master/LICENSE">MIT</a> license. <a
-        href="https://github.com/stevewhitmore/mmm-toast">View source</a>.
+      Released under the <a href="https://gitlab.com/stevewhitmore/mmm-toast/blob/master/LICENSE">MIT</a> license. <a
+        href="https://gitlab.com/stevewhitmore/mmm-toast">View source</a>.
     </footer>
 
     <mmm-toast></mmm-toast>

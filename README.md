@@ -12,7 +12,7 @@ npm i mmm-toast
 
 ## Demo
 
-Online demo available [here](https://stevewhitmore.github.io/mmm-toast)
+Online demo available [here](https://stevewhitmore.gitlab.io/mmm-toast)
 
 ## Usage
 
@@ -273,4 +273,4 @@ The countdown toast defaults to an "info" toast type:
 
 ## License
 
-[MIT](https://github.com/stevewhitmore/mmm-toast/blob/master/LICENSE)
+[MIT](https://gitlab.com/stevewhitmore/mmm-toast/blob/master/LICENSE)
