@@ -273,4 +273,4 @@ The countdown toast defaults to an "info" toast type:
 
 ## License
 
-[MIT](https://github.com/stevewhitmore/mmm-toast/blob/master/LICENSE)
+[MIT](https://gitlab.com/stevewhitmore/mmm-toast/blob/master/LICENSE)

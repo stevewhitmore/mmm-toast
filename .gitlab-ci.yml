@@ -1,0 +1,65 @@
+default:
+  image: node:12-alpine
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+  - node_modules/
+  - .npm/
+
+stages:
+  - validation
+  - install
+  - test
+  - deploy_demo
+  - publish
+
+f_check:
+  image: alpine:latest
+  stage: validation
+  script:
+    |
+      echo -e "Making sure all unit tests will run. There should be no \"fdescribe\" or \"fit\"."
+      FDESCRIBE=$(find ./src/app -type f -exec grep "fdescribe(" {} \;)
+      FIT=$(find ./src/app -type f -exec grep "fit(" {} \;)
+      if [ -n "$FDESCRIBE" ]; then
+        echo "fdescribe found"
+        echo "$FDESCRIBE"
+        exit 1
+      fi
+      if [ -n "$FIT" ]; then
+          echo "fit found"
+          echo "$FIT"
+          exit 1
+      fi
+
+install_dependencies:
+  stage: install
+  script:
+    - npm ci --cache .npm --prefer-offline
+
+eslint:
+  stage: test
+  script: npm run lint
+
+unit_tests:
+  stage: test
+  before_script:
+    - apk add chromium
+    - export CHROME_BIN=/usr/bin/chromium-browser
+  script: npm run test-ci
+
+pages:
+  stage: deploy_demo
+  script:
+    - npm run gl-pages
+  artifacts:
+    paths:
+      - public
+
+publish_artifact:
+  stage: publish
+  when: manual
+  script: echo "Publish stuff goes here..."
+  only:
+    - tag
