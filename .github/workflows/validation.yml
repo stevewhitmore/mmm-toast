@@ -20,5 +20,6 @@ jobs:
           fi
           if [ -n "${fit_found}" ]; then
               echo "fit found"
+              echo "${fit_found}"
               exit 1
           fi
