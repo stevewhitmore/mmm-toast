@@ -13,13 +13,13 @@ jobs:
           lib_dir="projects/mmm-toast/src/lib"
           fdescribe_found=$(grep -r "fdescribe" "${lib_dir}")
           fit_found=$(grep -r "fdescribe" "${lib_dir}")
-          if [ -n "$FDESCRIBE" ]; then
+          if [ -n "fdescribe_found" ]; then
             echo "fdescribe found"
-            echo "$FDESCRIBE"
+            echo "fdescribe_found"
             exit 1
           fi
-          if [ -n "$FIT" ]; then
+          if [ -n "${fit_found}" ]; then
               echo "fit found"
-              echo "$FIT"
+              echo "${fit_found}"
               exit 1
           fi
