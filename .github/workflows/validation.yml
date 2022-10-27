@@ -1,0 +1,25 @@
+name: validation
+
+on: [push]
+jobs:
+  f_check:
+  runs-on: ubuntu-latest:
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - run: |
+      echo -e "Making sure all unit tests will run. There should be no \"fdescribe\" or \"fit\"."
+      FDESCRIBE=$(find ./src/app -type f -exec grep "fdescribe(" {} \;)
+      FIT=$(find ./src/app -type f -exec grep "fit(" {} \;)
+      if [ -n "$FDESCRIBE" ]; then
+        echo "fdescribe found"
+        echo "$FDESCRIBE"
+        exit 1
+      fi
+      if [ -n "$FIT" ]; then
+          echo "fit found"
+          echo "$FIT"
+          exit 1
+      fi
