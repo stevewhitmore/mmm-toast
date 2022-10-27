@@ -1,9 +1,10 @@
 {
   "name": "mmm-toast",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "peerDependencies": {
-    "@angular/common": "^11.0.9",
-    "@angular/core": "^11.0.9"
+    "@angular/common": "^14.0.0",
+    "@angular/core": "^14.0.0",
+    "rxjs": "^7.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"
