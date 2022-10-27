@@ -12,7 +12,7 @@ npm i mmm-toast
 
 ## Demo
 
-Online demo available [here](https://stevewhitmore.github.io/mmm-toast)
+Online demo available [here](https://stevewhitmore.dev/mmm-toast)
 
 ## Usage
 
@@ -128,7 +128,7 @@ export interface ToastModel extends GlobalConfigModel {
 `receiveGlobalConfigs(configs: GlobalConfigModel): void {}`
 
 Allows you to set global properties for your toasts so you don't have to set the same properties
-on toasts passed in over and over. These properties are overwritten by whatever you pass into 
+on toasts passed in over and over. These properties are overwritten by whatever you pass into
 `addToast()`.
 
 `removeToast(toastId: number): void {}`
@@ -273,4 +273,4 @@ The countdown toast defaults to an "info" toast type:
 
 ## License
 
-[MIT](https://gitlab.com/stevewhitmore/mmm-toast/blob/master/LICENSE)
+[MIT](https://github.com/stevewhitmore/mmm-toast/blob/master/LICENSE)
