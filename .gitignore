@@ -3,6 +3,7 @@
 /src/assets/*.css
 
 # compiled output
+.angular
 /dist
 /tmp
 /out-tsc

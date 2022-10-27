@@ -1,36 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
-
-type Prefixable = keyof Pick<ToastModel, 'theme' | 'position' | 'type'>;
-export type ToastAPrefix<Key extends Prefixable> = `toasta-${Key}`;
-
-export type Theme = 'bootstrap' | 'default' | 'material';
-export type GlobalTheme = `${ToastAPrefix<'theme'>}-${Theme}` | Theme;
-
-export type PositionY = 'bottom' | 'top';
-export type PositionX = 'right' | 'left' | 'center' | 'fullwidth';
-export type Position = `${PositionY}-${PositionX}` | 'center-center';
-export type GlobalPosition = `${ToastAPrefix<'position'>}-${Position}` | Position;
-
-export type Type = 'error' | 'info' | 'success' | 'wait' | 'warning';
-export type GlobalType = `${ToastAPrefix<'type'>}-${Type}` | Type;
-
-export interface GlobalConfigModel {
-  id?: number;
-  title?: string;
-  showClose?: boolean;
-  showDuration?: boolean;
-  theme?: GlobalTheme;
-  timeout?: number;
-  position?: GlobalPosition;
-  limit?: number;
-  isCountdown?: boolean;
-}
-
-export interface ToastModel extends GlobalConfigModel {
-  type: GlobalType;
-  message: string;
-}
+import {
+  ToastModel,
+  GlobalConfigModel,
+  GlobalType,
+  GlobalTheme,
+  GlobalPosition,
+} from './models';
 
 @Injectable({
   providedIn: 'root'

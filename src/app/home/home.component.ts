@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MmmToastService } from 'projects/mmm-toast/src/public-api';
 
 @Component({
@@ -8,7 +8,7 @@ import { MmmToastService } from 'projects/mmm-toast/src/public-api';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  demoForm: FormGroup;
+  demoForm: UntypedFormGroup;
 
   themes = [{
     name: 'Default Theme',
@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
     code: 'center-center',
   }];
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
               private mmmToastService: MmmToastService) {}
 
   ngOnInit() {
