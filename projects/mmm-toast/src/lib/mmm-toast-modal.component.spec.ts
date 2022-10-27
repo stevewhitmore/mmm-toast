@@ -63,7 +63,7 @@ describe('MmmToastComponentModal', () => {
     }));
   }); // handleProgress()
 
-  describe('close()', () => {
+  fdescribe('close()', () => {
     it('should call next() on "closeToastEvent" if "toast.id" present', () => {
       const spy = spyOn(component.closeToastEvent, 'next').and.callThrough();
       component.toast.id = 1;

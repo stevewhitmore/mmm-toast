@@ -1,6 +1,5 @@
 name: validation
-
-on: [push]
+on: push
 jobs:
   f_check:
     runs-on: ubuntu-latest
@@ -11,8 +10,9 @@ jobs:
           node-version: '16'
       - run: |
           echo -e "Making sure all unit tests will run. There should be no \"fdescribe\" or \"fit\"."
-          FDESCRIBE=$(find ./src/app -type f -exec grep "fdescribe(" {} \;)
-          FIT=$(find ./src/app -type f -exec grep "fit(" {} \;)
+          lib_dir="projects/mmm-toast/src/lib"
+          fdescribe_found=$(grep -r "fdescribe" "${lib_dir}")
+          fit_found=$(grep -r "fdescribe" "${lib_dir}")
           if [ -n "$FDESCRIBE" ]; then
             echo "fdescribe found"
             echo "$FDESCRIBE"
