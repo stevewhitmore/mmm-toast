@@ -27,5 +27,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+       with:
+          args: deploy --dir=public --prod
+          args: deploy --dir=app/public --prod
       - name: Test
         run: npm run test
+  lint:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Lint
+        run: npm run lint
+
