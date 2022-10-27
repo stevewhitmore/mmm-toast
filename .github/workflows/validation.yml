@@ -11,8 +11,8 @@ jobs:
       - run: |
           echo -e "Making sure all unit tests will run. There should be no \"fdescribe\" or \"fit\"."
           lib_dir="projects/mmm-toast/src/lib"
-          fdescribe_found=$(grep -r "fdescribe" "${lib_dir}")
-          fit_found=$(grep -r "fdescribe" "${lib_dir}")
+          fdescribe_found=$(grep -r "fdescribe(" "${lib_dir}")
+          fit_found=$(grep -r "fit(" "${lib_dir}")
           if [ -n "${fdescribe_found}" ]; then
             echo "fdescribe found"
             echo "${fdescribe_found}"
