@@ -7,6 +7,7 @@
     "build": "node ./scripts/copy-styles.js && ng build mmm-toast --configuration production",
     "gh-pages": "node ./scripts/copy-styles.js demo && ng build --configuration production --output-path docs --base-href /mmm-toast/",
     "test": "ng test mmm-toast --browsers=ChromiumHeadless --watch=true",
+    "test-ci": "ng test mmm-toast --browsers=ChromiumHeadless --watch=false",
     "lint": "ng lint mmm-toast",
     "e2e": "ng e2e"
   },
