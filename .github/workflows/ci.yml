@@ -1,8 +1,8 @@
-name: Angular GitHub CI
+name: Tests
 on: push
 
 jobs:
-  ci:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -38,10 +38,18 @@ jobs:
 
       - name: Test
         run: npm run test-ci
-
-      - name: Deploy
-        on:
-          push:
-            branches:
-              - main
-        run: npm run gh-pages
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - run: |
+          npm ci
+          npm run gh-pages
