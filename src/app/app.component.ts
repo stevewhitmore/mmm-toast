@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MmmToastService } from 'projects/mmm-toast/src/public-api'
+import { MmmToastService } from 'projects/mmm-toast/src/public-api';
 
 @Component({
   selector: 'app-root',
