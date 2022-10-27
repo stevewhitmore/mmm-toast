@@ -1,5 +1,13 @@
-import { Component, EventEmitter, Input, Output, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { ToastModel } from './mmm-toast.service';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
+import { ToastModel } from './models';
 
 @Component({
   selector: 'mmm-toast-modal',
@@ -58,7 +66,9 @@ export class MmmToastModalComponent implements AfterViewInit {
   }
 
   close(toast: ToastModel) {
-    this.closeToastEvent.next(toast.id);
+    if (toast.id) {
+      this.closeToastEvent.next(toast.id);
+    }
 
     if (this.progressInterval) {
       clearInterval(this.progressInterval);

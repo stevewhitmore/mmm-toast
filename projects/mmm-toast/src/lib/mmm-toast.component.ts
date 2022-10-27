@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MmmToastService, ToastModel } from './mmm-toast.service';
+import { MmmToastService } from './mmm-toast.service';
+import { ToastModel } from './models';
 
 @Component({
   selector: 'mmm-toast',

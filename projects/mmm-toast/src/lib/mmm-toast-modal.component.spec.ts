@@ -64,8 +64,9 @@ describe('MmmToastComponentModal', () => {
   }); // handleProgress()
 
   describe('close()', () => {
-    it('should call next() on "closeToastEvent"', () => {
+    it('should call next() on "closeToastEvent" if "toast.id" present', () => {
       const spy = spyOn(component.closeToastEvent, 'next').and.callThrough();
+      component.toast.id = 1;
 
       component.close(component.toast);
 
