@@ -15,11 +15,11 @@ jobs:
           fit_found=$(grep -r "fdescribe" "${lib_dir}")
           if [ -n "fdescribe_found" ]; then
             echo "fdescribe found"
-              echo "${fdescribe_found}"
+            echo "${fdescribe_found}"
             exit 1
           fi
           if [ -n "${fit_found}" ]; then
-              echo "fit found"
-              echo "${fit_found}"
-              exit 1
+            echo "fit found"
+            echo "${fit_found}"
+            exit 1
           fi
