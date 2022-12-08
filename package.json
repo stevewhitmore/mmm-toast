@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve && node ./scripts/copy-styles.js demo ",
+    "start": "node ./scripts/copy-styles.js demo && ng serve",
     "build": "ng build --configuration production mmm-toast && node ./scripts/copy-styles.js",
-    "gh-pages": "node ./scripts/copy-styles.js demo && ng build --configuration production --output-path docs --base-href /mmm-toast/",
+    "gh-pages": "ng build --configuration production --output-path docs --base-href /mmm-toast/ && node ./scripts/copy-styles.js demo",
     "test": "ng test mmm-toast --browsers=ChromiumHeadless --watch=true",
     "test-ci": "ng test mmm-toast --browsers=ChromiumHeadless --watch=false",
     "lint": "ng lint mmm-toast",
