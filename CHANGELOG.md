@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1
+* Changed
+  * Fixed how styles were bundled
+
 ## 2.0.0
 
 * Breaking Changes
