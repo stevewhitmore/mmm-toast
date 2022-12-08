@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node ./scripts/copy-styles.js demo && ng serve",
-    "build": "node ./scripts/copy-styles.js && ng build mmm-toast --configuration production",
+    "start": "ng serve && node ./scripts/copy-styles.js demo ",
+    "build": "ng build --configuration production mmm-toast && node ./scripts/copy-styles.js",
     "gh-pages": "node ./scripts/copy-styles.js demo && ng build --configuration production --output-path docs --base-href /mmm-toast/",
     "test": "ng test mmm-toast --browsers=ChromiumHeadless --watch=true",
     "test-ci": "ng test mmm-toast --browsers=ChromiumHeadless --watch=false",
