@@ -28,17 +28,18 @@ Online demo available [here](https://stevewhitmore.dev/mmm-toast)
 
 #### 1. Update the styles
 
-- Import style into your web page. Choose one of the following files;
-  - `style-default.css` - Contains DEFAULT theme
-  - `style-bootstrap.css` - Contains Bootstrap 3 theme
-  - `style-material.css` - Contains Material Design theme
+Choose one of the following styles to use for the popup notifications:
 
-  ```css
-  /* styles.css/styles.scss - you really only need to import the one you'll use */
-  @import "~mmm-toast/lib/styles/style-default.css";
-  @import "~mmm-toast/lib/styles/style-bootstrap.css";
-  @import "~mmm-toast/lib/styles/style-material.css";
-  ```
+- `style-default.css` - Contains DEFAULT theme
+- `style-bootstrap.css` - Contains Bootstrap theme
+- `style-material.css` - Contains Material Design theme
+
+```css
+/* styles.css/styles.scss */
+@import "~mmm-toast/lib/styles/style-default.css";
+@import "~mmm-toast/lib/styles/style-bootstrap.css";
+@import "~mmm-toast/lib/styles/style-material.css";
+```
 
 - Assign the selected theme name [`default`, `bootstrap`, `material`] to the `theme` property of the instance of ToastaConfig.
 - Add `<mmm-toast></mmm-toast>` tag in template of your application component.
@@ -49,10 +50,10 @@ Import `MmmToastModule` in the NgModule of your application.
 The `forRoot` method is a convention for modules that provide a singleton service.
 
 ```ts
-import {BrowserModule} from "@angular/platform-browser";
-import {NgModule} from '@angular/core';
-import {MmmToastModule} from 'mmm-toast';
-import {AppComponent} from './app.component';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from '@angular/core';
+import { MmmToastModule } from 'mmm-toast';
+import { AppComponent } from './app.component';
 
 @NgModule({
     imports: [
@@ -62,21 +63,6 @@ import {AppComponent} from './app.component';
     bootstrap: [AppComponent]
 })
 export class AppModule {
-}
-```
-
-If you have multiple NgModules and you use one as a shared NgModule (that you import in all of your other NgModules),
-don't forget that you can use it to export the `MmmToastModule` that you imported in order to avoid having to import it multiple times.
-
-```ts
-@NgModule({
-    imports: [
-        BrowserModule,
-        MmmToastModule,
-    ],
-    exports: [BrowserModule, MmmToastModule],
-})
-export class SharedModule {
 }
 ```
 
@@ -94,7 +80,7 @@ export class AppComponent {
 
   constructor(private mmmToastService: MmmToastService) {}
   
-  ...
+  //...
 }
 ```
 
