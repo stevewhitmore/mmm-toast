@@ -12,7 +12,7 @@ npm i mmm-toast
 
 ## Demo
 
-Online demo available [here](https://stevewhitmore.dev/mmm-toast)
+Online demo available [here](https://stephenwhitmore.dev/mmm-toast)
 
 ## Usage
 
