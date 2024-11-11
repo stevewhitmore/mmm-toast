@@ -1,5 +1,12 @@
 # mmm-toast [![npm version](https://badge.fury.io/js/mmm-toast.svg)](https://badge.fury.io/js/mmm-toast) [![npm monthly downloads](https://img.shields.io/npm/dm/mmm-toast.svg?style=flat-square)](https://www.npmjs.com/package/mmm-toast)
 
+==========================================================================
+## :exclamation::exclamation: *UPDATE 2024-11-11* :exclamation::exclamation:
+
+This project has been abandoned. I recommend using the [Snackbar component](https://material.angular.io/components/snack-bar/overview) from the Angular Material library.
+
+==========================================================================
+
 An Angular toast component that shows growl-style alerts and messages for your application.
 This is a continuation of the legacy previously championed by [ngx-toasta](https://github.com/emonney/ngx-toasta)
 and before that [ng2-toasty](https://github.com/akserg/ng2-toasty) with the latest package versions, complete refactoring from the ground-up, and additional enhancements.
